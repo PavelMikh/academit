@@ -1,5 +1,7 @@
 package ru.academit.mikhajlov.range;
 
+import java.util.Arrays;
+
 public class Range {
     private double from;
     private double to;
