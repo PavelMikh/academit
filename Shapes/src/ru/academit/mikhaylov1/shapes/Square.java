@@ -29,6 +29,6 @@ public class Square implements Shapes {
 
     @Override
     public String toString() {
-        return "[Квадрат : длина стороны = " +  sideLength + "]" + System.lineSeparator();
+        return "[Квадрат : длина стороны = " + sideLength + "]" + System.lineSeparator();
     }
 }
