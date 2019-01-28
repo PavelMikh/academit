@@ -26,4 +26,9 @@ public class Square implements Shapes {
     public double getPerimeter() {
         return sideLength * 4;
     }
+
+    @Override
+    public String toString() {
+        return "[Квадрат : длина стороны = " +  sideLength + "]" + System.lineSeparator();
+    }
 }

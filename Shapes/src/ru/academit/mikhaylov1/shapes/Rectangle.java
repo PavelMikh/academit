@@ -28,4 +28,9 @@ public class Rectangle implements Shapes {
     public double getPerimeter() {
         return (width + height) * 2;
     }
+
+    @Override
+    public String toString() {
+        return "[Прямоугольник : сторона 1 = " + width + "; " + "сторона 2 = " + height + "]" + System.lineSeparator();
+    }
 }

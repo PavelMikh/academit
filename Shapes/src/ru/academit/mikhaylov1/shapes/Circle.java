@@ -26,4 +26,9 @@ public class Circle implements Shapes {
     public double getPerimeter() {
         return 2 * Math.PI * radius;
     }
+
+    @Override
+    public String toString() {
+        return "[Круг : радиус = " + radius + "]" + System.lineSeparator();
+    }
 }

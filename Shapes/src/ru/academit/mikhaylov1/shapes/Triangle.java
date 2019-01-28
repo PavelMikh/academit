@@ -73,4 +73,9 @@ public class Triangle implements Shapes {
         double cLength = getDistance(x2, y2, x3, y3);
         return aLength + bLength + cLength;
     }
+
+    @Override
+    public String toString() {
+        return "[Треугольник : координаты первой вершины x1 = " + x1 + " y1 = " + y1 + "; " + "координаты вторвой вершины x2 = " + x2 + " y2 = " + y2 + "; " + "координаты третьей вершины x3 = " + x3 + " y3 = " + y3 + "]" + System.lineSeparator();
+    }
 }

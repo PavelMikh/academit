@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        Square square = new Square(5);
+        Square square = new Square(6);
         Square square1 = new Square(4);
         Rectangle rectangle = new Rectangle(2, 3);
         Rectangle rectangle1 = new Rectangle(3, 4);
@@ -19,6 +19,7 @@ public class Main {
         Shapes[] shapes = new Shapes[]{square, square1, rectangle, rectangle1, triangle, triangle1, circle, circle1};
 
         Arrays.sort(shapes, new ShapesAreaComparator());
+        Arrays.sort(shapes, new ShapesPerimeterComparator());
 
         System.out.println(Arrays.toString(shapes));
     }
