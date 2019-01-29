@@ -18,9 +18,17 @@ public class Main {
 
         Shapes[] shapes = new Shapes[]{square, square1, rectangle, rectangle1, triangle, triangle1, circle, circle1};
 
-        Arrays.sort(shapes, new ShapesAreaComparator());
-        Arrays.sort(shapes, new ShapesPerimeterComparator());
+        System.out.println("Фигура с максимальной площадью " + maxArea(shapes));
+        System.out.println("Фигура со вторым по величине периметром " + secondMaxPerimeter(shapes));
+    }
 
-        System.out.println(Arrays.toString(shapes));
+    public static Shapes maxArea(Shapes[] shapes) {
+        Arrays.sort(shapes, new ShapesAreaComparator());
+        return shapes[shapes.length - 1];
+    }
+
+    public static Shapes secondMaxPerimeter(Shapes[] shapes) {
+        Arrays.sort(shapes, new ShapesPerimeterComparator());
+        return shapes[shapes.length - 2];
     }
 }
