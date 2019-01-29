@@ -33,4 +33,16 @@ public class Rectangle implements Shapes {
     public String toString() {
         return "[Прямоугольник : сторона 1 = " + width + "; " + "сторона 2 = " + height + "]" + System.lineSeparator();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Rectangle rectangle = (Rectangle) o;
+        return rectangle.width == ((Rectangle) o).width && rectangle.height == ((Rectangle) o).height;
+    }
 }

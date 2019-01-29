@@ -31,4 +31,16 @@ public class Circle implements Shapes {
     public String toString() {
         return "[Круг : радиус = " + radius + "]" + System.lineSeparator();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+        Circle circle = (Circle) o;
+        return circle.radius == ((Circle) o).radius;
+    }
 }

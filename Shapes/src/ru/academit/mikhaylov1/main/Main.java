@@ -22,12 +22,12 @@ public class Main {
         System.out.println("Фигура со вторым по величине периметром " + secondMaxPerimeter(shapes));
     }
 
-    public static Shapes maxArea(Shapes[] shapes) {
+    private static Shapes maxArea(Shapes[] shapes) {
         Arrays.sort(shapes, new ShapesAreaComparator());
         return shapes[shapes.length - 1];
     }
 
-    public static Shapes secondMaxPerimeter(Shapes[] shapes) {
+    private static Shapes secondMaxPerimeter(Shapes[] shapes) {
         Arrays.sort(shapes, new ShapesPerimeterComparator());
         return shapes[shapes.length - 2];
     }

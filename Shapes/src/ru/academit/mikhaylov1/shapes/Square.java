@@ -31,4 +31,16 @@ public class Square implements Shapes {
     public String toString() {
         return "[Квадрат : длина стороны = " + sideLength + "]" + System.lineSeparator();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Square square = (Square) o;
+        return square.sideLength == ((Square) o).sideLength;
+    }
 }

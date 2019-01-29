@@ -78,4 +78,16 @@ public class Triangle implements Shapes {
     public String toString() {
         return "[Треугольник : координаты первой вершины x1 = " + x1 + " y1 = " + y1 + "; " + "координаты вторвой вершины x2 = " + x2 + " y2 = " + y2 + "; " + "координаты третьей вершины x3 = " + x3 + " y3 = " + y3 + "]" + System.lineSeparator();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Triangle triangle = (Triangle) o;
+        return triangle.x1 == ((Triangle) o).x1 && triangle.x2 == ((Triangle) o).x2 && triangle.x3 == ((Triangle) o).x3 && triangle.y1 == ((Triangle) o).y1 && triangle.y2 == ((Triangle) o).y2 && triangle.y3 == ((Triangle) o).y3;
+    }
 }
