@@ -20,38 +20,38 @@ public class Main {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Фигура с максимальной площадью ")
-                .append(maxArea(arrayShapes).toString())
+                .append(getMaxArea(arrayShapes).toString())
                 .append(" высота = ")
-                .append(maxArea(arrayShapes).getHeight())
+                .append(getMaxArea(arrayShapes).getHeight())
                 .append(" ширина = ")
-                .append(maxArea(arrayShapes).getWidth())
+                .append(getMaxArea(arrayShapes).getWidth())
                 .append(" площадь = ")
-                .append(maxArea(arrayShapes).getArea())
+                .append(getMaxArea(arrayShapes).getArea())
                 .append(" периметр = ")
-                .append(maxArea(arrayShapes).getPerimeter())
+                .append(getMaxArea(arrayShapes).getPerimeter())
                 .append(System.lineSeparator())
                 .append("Фигура со вторым по величине периметром ")
-                .append(secondMaxPerimeter(arrayShapes).toString())
+                .append(getSecondBySizePerimeter(arrayShapes).toString())
                 .append(" высота = ")
-                .append(secondMaxPerimeter(arrayShapes).getHeight())
+                .append(getSecondBySizePerimeter(arrayShapes).getHeight())
                 .append(" ширина = ")
-                .append(secondMaxPerimeter(arrayShapes).getWidth())
+                .append(getSecondBySizePerimeter(arrayShapes).getWidth())
                 .append(" площадь = ")
-                .append(secondMaxPerimeter(arrayShapes).getArea())
+                .append(getSecondBySizePerimeter(arrayShapes).getArea())
                 .append(" периметр = ")
-                .append(secondMaxPerimeter(arrayShapes).getPerimeter());
+                .append(getSecondBySizePerimeter(arrayShapes).getPerimeter());
 
         String searchResult = sb.toString();
 
         System.out.println(searchResult);
     }
 
-    private static Shapes maxArea(Shapes[] shapes) {
+    private static Shapes getMaxArea(Shapes[] shapes) {
         Arrays.sort(shapes, new ShapesAreaComparator());
         return shapes[shapes.length - 1];
     }
 
-    private static Shapes secondMaxPerimeter(Shapes[] shapes) {
+    private static Shapes getSecondBySizePerimeter(Shapes[] shapes) {
         Arrays.sort(shapes, new ShapesPerimeterComparator());
         return shapes[shapes.length - 2];
     }
