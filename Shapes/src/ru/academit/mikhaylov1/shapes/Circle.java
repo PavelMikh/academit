@@ -43,4 +43,9 @@ public class Circle implements Shapes {
         Circle circle = (Circle) o;
         return circle.radius == ((Circle) o).radius;
     }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(radius);
+    }
 }

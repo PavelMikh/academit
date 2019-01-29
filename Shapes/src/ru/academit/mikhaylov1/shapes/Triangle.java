@@ -17,7 +17,7 @@ public class Triangle implements Shapes {
         this.y3 = y3;
     }
 
-    public double getDistance(double x1, double y1, double x2, double y2) {
+    private double getDistance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
@@ -89,5 +89,19 @@ public class Triangle implements Shapes {
         }
         Triangle triangle = (Triangle) o;
         return triangle.x1 == ((Triangle) o).x1 && triangle.x2 == ((Triangle) o).x2 && triangle.x3 == ((Triangle) o).x3 && triangle.y1 == ((Triangle) o).y1 && triangle.y2 == ((Triangle) o).y2 && triangle.y3 == ((Triangle) o).y3;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 11;
+        int hash = 1;
+        hash = prime * hash + Double.hashCode(x1);
+        hash = prime * hash + Double.hashCode(y1);
+        hash = prime * hash + Double.hashCode(x2);
+        hash = prime * hash + Double.hashCode(y2);
+        hash = prime * hash + Double.hashCode(x3);
+        hash = prime * hash + Double.hashCode(y3);
+
+        return hash;
     }
 }

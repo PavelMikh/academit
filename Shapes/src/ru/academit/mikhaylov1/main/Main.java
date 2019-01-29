@@ -16,10 +16,34 @@ public class Main {
         Circle circle = new Circle(2);
         Circle circle1 = new Circle(3);
 
-        Shapes[] shapes = new Shapes[]{square, square1, rectangle, rectangle1, triangle, triangle1, circle, circle1};
+        Shapes[] arrayShapes = new Shapes[]{square, square1, rectangle, rectangle1, triangle, triangle1, circle, circle1};
 
-        System.out.println("Фигура с максимальной площадью " + maxArea(shapes));
-        System.out.println("Фигура со вторым по величине периметром " + secondMaxPerimeter(shapes));
+        StringBuilder sb = new StringBuilder();
+        sb.append("Фигура с максимальной площадью ")
+                .append(maxArea(arrayShapes).toString())
+                .append(" высота = ")
+                .append(maxArea(arrayShapes).getHeight())
+                .append(" ширина = ")
+                .append(maxArea(arrayShapes).getWidth())
+                .append(" площадь = ")
+                .append(maxArea(arrayShapes).getArea())
+                .append(" периметр = ")
+                .append(maxArea(arrayShapes).getPerimeter())
+                .append(System.lineSeparator())
+                .append("Фигура со вторым по величине периметром ")
+                .append(secondMaxPerimeter(arrayShapes).toString())
+                .append(" высота = ")
+                .append(secondMaxPerimeter(arrayShapes).getHeight())
+                .append(" ширина = ")
+                .append(secondMaxPerimeter(arrayShapes).getWidth())
+                .append(" площадь = ")
+                .append(secondMaxPerimeter(arrayShapes).getArea())
+                .append(" периметр = ")
+                .append(secondMaxPerimeter(arrayShapes).getPerimeter());
+
+        String searchResult = sb.toString();
+
+        System.out.println(searchResult);
     }
 
     private static Shapes maxArea(Shapes[] shapes) {

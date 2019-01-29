@@ -43,4 +43,9 @@ public class Square implements Shapes {
         Square square = (Square) o;
         return square.sideLength == ((Square) o).sideLength;
     }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(sideLength);
+    }
 }
