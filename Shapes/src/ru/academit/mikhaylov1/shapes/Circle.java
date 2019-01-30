@@ -1,6 +1,6 @@
 package ru.academit.mikhaylov1.shapes;
 
-public class Circle implements Shapes {
+public class Circle implements Shape {
     private double radius;
 
     public Circle(double radius) {
@@ -29,7 +29,7 @@ public class Circle implements Shapes {
 
     @Override
     public String toString() {
-        return "[Круг : радиус = " + radius + "]" + System.lineSeparator();
+        return "[Круг : радиус = " + radius + "]";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Circle implements Shapes {
             return false;
         }
         Circle circle = (Circle) o;
-        return circle.radius == ((Circle) o).radius;
+        return radius == circle.radius;
     }
 
     @Override

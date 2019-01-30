@@ -1,6 +1,6 @@
 package ru.academit.mikhaylov1.shapes;
 
-public class Triangle implements Shapes {
+public class Triangle implements Shape {
     private double x1;
     private double y1;
     private double x2;
@@ -17,7 +17,7 @@ public class Triangle implements Shapes {
         this.y3 = y3;
     }
 
-    private double getDistance(double x1, double y1, double x2, double y2) {
+    private static double getDistance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
@@ -76,7 +76,9 @@ public class Triangle implements Shapes {
 
     @Override
     public String toString() {
-        return "[Треугольник : координаты первой вершины x1 = " + x1 + " y1 = " + y1 + "; " + "координаты вторвой вершины x2 = " + x2 + " y2 = " + y2 + "; " + "координаты третьей вершины x3 = " + x3 + " y3 = " + y3 + "]" + System.lineSeparator();
+        return "[Треугольник : координаты первой вершины x1 = " + x1 + " y1 = " + y1 + "; "
+                + "координаты вторвой вершины x2 = " + x2 + " y2 = " + y2 + "; "
+                + "координаты третьей вершины x3 = " + x3 + " y3 = " + y3 + "]";
     }
 
     @Override
@@ -88,7 +90,8 @@ public class Triangle implements Shapes {
             return false;
         }
         Triangle triangle = (Triangle) o;
-        return triangle.x1 == ((Triangle) o).x1 && triangle.x2 == ((Triangle) o).x2 && triangle.x3 == ((Triangle) o).x3 && triangle.y1 == ((Triangle) o).y1 && triangle.y2 == ((Triangle) o).y2 && triangle.y3 == ((Triangle) o).y3;
+        return x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 &&
+                y2 == triangle.y2 && x3 == triangle.x3 && y3 == triangle.y3;
     }
 
     @Override

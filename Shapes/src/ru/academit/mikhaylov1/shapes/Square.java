@@ -1,6 +1,6 @@
 package ru.academit.mikhaylov1.shapes;
 
-public class Square implements Shapes {
+public class Square implements Shape {
     private double sideLength;
 
     public Square(double sideLength) {
@@ -29,7 +29,7 @@ public class Square implements Shapes {
 
     @Override
     public String toString() {
-        return "[Квадрат : длина стороны = " + sideLength + "]" + System.lineSeparator();
+        return "[Квадрат : длина стороны = " + sideLength + "]";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Square implements Shapes {
             return false;
         }
         Square square = (Square) o;
-        return square.sideLength == ((Square) o).sideLength;
+        return sideLength == square.sideLength;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Main {
         Circle circle = new Circle(2);
         Circle circle1 = new Circle(3);
 
-        Shapes[] arrayShapes = new Shapes[]{square, square1, rectangle, rectangle1, triangle, triangle1, circle, circle1};
+        Shape[] arrayShapes = new Shape[]{square, square1, rectangle, rectangle1, triangle, triangle1, circle, circle1};
 
         StringBuilder sb = new StringBuilder();
         sb.append("Фигура с максимальной площадью ")
@@ -46,12 +46,12 @@ public class Main {
         System.out.println(searchResult);
     }
 
-    private static Shapes getMaxArea(Shapes[] shapes) {
+    private static Shape getMaxArea(Shape[] shapes) {
         Arrays.sort(shapes, new ShapesAreaComparator());
         return shapes[shapes.length - 1];
     }
 
-    private static Shapes getSecondBySizePerimeter(Shapes[] shapes) {
+    private static Shape getSecondBySizePerimeter(Shape[] shapes) {
         Arrays.sort(shapes, new ShapesPerimeterComparator());
         return shapes[shapes.length - 2];
     }

@@ -1,6 +1,6 @@
 package ru.academit.mikhaylov1.shapes;
 
-public class Rectangle implements Shapes {
+public class Rectangle implements Shape {
     private double width;
     private double height;
 
@@ -31,7 +31,7 @@ public class Rectangle implements Shapes {
 
     @Override
     public String toString() {
-        return "[Прямоугольник : сторона 1 = " + width + "; " + "сторона 2 = " + height + "]" + System.lineSeparator();
+        return "[Прямоугольник : сторона 1 = " + width + "; " + "сторона 2 = " + height + "]";
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Rectangle implements Shapes {
             return false;
         }
         Rectangle rectangle = (Rectangle) o;
-        return rectangle.width == ((Rectangle) o).width && rectangle.height == ((Rectangle) o).height;
+        return width == rectangle.width && height == rectangle.height;
     }
 
     @Override

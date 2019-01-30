@@ -1,6 +1,6 @@
 package ru.academit.mikhaylov1.shapes;
 
-public interface Shapes {
+public interface Shape {
     double getWidth();
 
     double getHeight();
