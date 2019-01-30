@@ -12,7 +12,7 @@ public class Main {
         Rectangle rectangle = new Rectangle(2, 3);
         Rectangle rectangle1 = new Rectangle(3, 4);
         Triangle triangle = new Triangle(1, 1, 2, 5, 3, 1);
-        Triangle triangle1 = new Triangle(1, 1, 3, 7, 5, 1);
+        Triangle triangle1 = new Triangle(1, 1, 3, 14, 15, 1);
         Circle circle = new Circle(2);
         Circle circle1 = new Circle(3);
 

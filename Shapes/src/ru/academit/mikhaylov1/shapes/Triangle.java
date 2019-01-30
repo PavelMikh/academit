@@ -21,40 +21,30 @@ public class Triangle implements Shape {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
+    private static double getMax(double a1, double a2, double a3) {
+        if (a1 > Math.max(a2, a3)) {
+            return a1;
+        } else {
+            return Math.max(a2, a3);
+        }
+    }
+
+    private static double getMin(double a1, double a2, double a3) {
+        if (a1 < Math.min(a2, a3)) {
+            return a1;
+        } else {
+            return Math.min(a2, a3);
+        }
+    }
+
     @Override
     public double getWidth() {
-        double max;
-        double min;
-        if (x1 > Math.max(x2, x3)) {
-            max = x1;
-        } else {
-            max = Math.max(x2, x3);
-        }
-
-        if (x1 < Math.min(x2, x3)) {
-            min = x1;
-        } else {
-            min = Math.min(x2, x3);
-        }
-        return max - min;
+        return getMax(x1, x2, x3) - getMin(x1, x2, x3);
     }
 
     @Override
     public double getHeight() {
-        double max;
-        double min;
-        if (y1 > Math.max(y2, y3)) {
-            max = y1;
-        } else {
-            max = Math.max(y2, y3);
-        }
-
-        if (y1 < Math.min(y2, y3)) {
-            min = y1;
-        } else {
-            min = Math.min(y2, y3);
-        }
-        return max - min;
+        return getMax(y1, y2, y3) - getMin(y1, y2, y3);
     }
 
     @Override
