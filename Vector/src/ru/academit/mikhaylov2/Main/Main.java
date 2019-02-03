@@ -11,20 +11,27 @@ public class Main {
 
         double[] doubles = new double[]{1, 2, 3};
 
-        System.out.println("Введите размерность вектора: ");
+        double[] doubles1 = new double[]{1, 2, 3, 4};
 
-        Vector vector = new Vector(scanner.nextInt());
+//        System.out.println("Введите размерность вектора: ");
 
-        vector.setVectorComponents(doubles);
+        int n = doubles.length;//scanner.nextInt();
+
+        Vector vector = new Vector(n, doubles);
+
         Vector vector1 = new Vector(vector);
-        vector.setVectorComponents(new double[]{4, 8, 6});
+        Vector vector2 = new Vector(doubles1.length, doubles);
+        Vector vector3 = vector.getSum(vector2);
+        vector2.getMultiplicationOfVectorOnScalar(3);
+
+        String a = Arrays.toString(vector.getComponents());
+
+        String b = Arrays.toString(vector1.getComponents());
+
+        String d = Arrays.toString(vector2.getComponents());
 
 
-        String b = Arrays.toString(vector1.getVectorComponents());
 
-        String a = Arrays.toString(vector.getVectorComponents());
-
-        System.out.println(vector.equals(vector1));
-        System.out.println(vector.getN() + ", " + vector1.getN() + ", " + a + ", " + b);
+        System.out.printf("%s, %s, %s; ", a, b, d);
     }
 }

@@ -1,12 +1,20 @@
 package ru.academit.mikhaylov2.Vector;
 
+import java.util.Arrays;
+
 public class Vector {
-    private int n;
-    private double[] vectorComponents;
+    private double[] components;
+
+    public double[] getComponents() {
+        return components;
+    }
+
+    public void setComponents(double[] components) {
+        this.components = components;
+    }
 
     public Vector(int n) {
         try {
-            this.n = n;
             if (n <= 0) {
                 throw new IllegalArgumentException();
             }
@@ -17,27 +25,47 @@ public class Vector {
     }
 
     public Vector(Vector vector) {
-        this.n = vector.getN();
-        this.vectorComponents = vector.getVectorComponents();
+        this.components = Arrays.copyOf(vector.components, vector.components.length);
     }
 
-    public Vector(double[] vectorComponents) {
-        this.vectorComponents = vectorComponents;
+    public Vector(double[] components) {
+        this.components = components;
     }
 
-    public int getN() {
-        return n;
+    public Vector(int n, double[] components) {
+        if (n <= 0) {
+            throw new IllegalArgumentException();
+        }
+        this.components = Arrays.copyOf(components, n);
     }
 
-    public void setN(int n) {
-        this.n = n;
+    public int getSize(Vector vector) {
+        return vector.components.length;
     }
 
-    public double[] getVectorComponents() {
-        return vectorComponents;
+    public String toString() {
+        return Arrays.toString(this.components);
     }
 
-    public void setVectorComponents(double[] vectorComponents) {
-        this.vectorComponents = vectorComponents;
+    public Vector getSum(Vector vector) {
+        double[] components = new double[Math.min(this.components.length, vector.components.length)];
+        for (int i = 0; i < Math.min(this.components.length, vector.components.length); i++) {
+            components[i] = this.components[i] + vector.components[i];
+        }
+        return new Vector(Math.max(this.components.length, vector.components.length), components);
+    }
+
+    public Vector getDifference(Vector vector) {
+        double[] components = new double[Math.min(this.components.length, vector.components.length)];
+        for (int i = 0; i < Math.min(this.components.length, vector.components.length); i++) {
+            components[i] = this.components[i] - vector.components[i];
+        }
+        return new Vector(Math.max(this.components.length, vector.components.length), components);
+    }
+
+    public void getMultiplicationOfVectorOnScalar(double scalar) {
+        for (int i = 0; i < components.length; i++) {
+            components[i] *= scalar;
+        }
     }
 }
