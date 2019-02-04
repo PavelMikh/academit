@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        Square square = new Square(6);
+        Square square = new Square(26);
         Square square1 = new Square(14);
         Rectangle rectangle = new Rectangle(2, 3);
         Rectangle rectangle1 = new Rectangle(3, 4);

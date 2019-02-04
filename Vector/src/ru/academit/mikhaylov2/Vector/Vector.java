@@ -6,14 +6,10 @@ public class Vector {
     private double[] components;
 
     public Vector(int n) {
-        try {
-            if (n <= 0) {
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Размерность вектора должна быть болше нуля.");
-            throw e;
+        if (n <= 0) {
+            throw new IllegalArgumentException();
         }
+        this.components = new double[n];
     }
 
     public Vector(Vector vector) {
@@ -31,12 +27,12 @@ public class Vector {
         this.components = Arrays.copyOf(components, n);
     }
 
-    public double[] getComponents() {
+    private double[] getComponents() {
         return components;
     }
 
     public void setComponents(double[] components) {
-        this.components = components;
+        this.components = Arrays.copyOf(components, components.length);
     }
 
     public int getSize() {
@@ -45,7 +41,14 @@ public class Vector {
 
     @Override
     public String toString() {
-        return Arrays.toString(this.components);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.components.length; i++) {
+            sb.append(components[i]);
+            if (i < components.length - 1) {
+                sb.append(", ");
+            }
+        }
+        return "{" + sb.toString() + "}";
     }
 
     @Override
@@ -57,7 +60,7 @@ public class Vector {
             return false;
         }
         Vector vector = (Vector) o;
-        return this.getSize() == vector.getSize() && this.getComponents() == vector.getComponents();
+        return Arrays.equals(this.components, vector.components);
     }
 
     @Override
@@ -65,7 +68,7 @@ public class Vector {
         return Arrays.hashCode(components);
     }
 
-    public void getsum(Vector vector) {
+    public void getAdd(Vector vector) {
         if (this.getSize() < vector.getSize()) {
             components = Arrays.copyOf(components, vector.components.length);
         }
@@ -74,12 +77,12 @@ public class Vector {
         }
     }
 
-    public void getDifference(Vector vector) {
+    public void getDeduction(Vector vector) {
         if (this.getSize() < vector.getSize()) {
             components = Arrays.copyOf(components, vector.components.length);
         }
         for (int i = 0; i < vector.components.length; i++) {
-            components[i] -= vector.components[i];
+            components[i] += (vector.components[i] * (-1));
         }
     }
 
@@ -98,7 +101,7 @@ public class Vector {
     public double getVectorLength() {
         double powSum = 0;
         for (double component : components) {
-            powSum = Math.pow(component, 2);
+            powSum += Math.pow(component, 2);
         }
         return Math.sqrt(powSum);
     }
@@ -115,5 +118,36 @@ public class Vector {
             throw new IllegalArgumentException();
         }
         components[index] = number;
+    }
+
+    public static Vector getSum(Vector vector, Vector vector1) {
+        if (vector.components.length < vector1.components.length) {
+            vector.components = Arrays.copyOf(vector.components, vector1.components.length);
+        }
+        for (int i = 0; i < vector.components.length; i++) {
+            vector.components[i] += vector1.components[i];
+        }
+        return new Vector(vector.components.length, vector.components);
+    }
+
+    public static Vector getDifference(Vector vector, Vector vector1) {
+        if (vector.components.length < vector1.components.length) {
+            vector.components = Arrays.copyOf(vector.components, vector1.components.length);
+        }
+        for (int i = 0; i < vector.components.length; i++) {
+            vector.components[i] += (vector1.components[i] * (-1));
+        }
+        return new Vector(vector.components.length, vector.components);
+    }
+
+    public static double getScalarProductByVectors(Vector vector, Vector vector1) {
+        double product = 0;
+        if (vector.components.length < vector1.components.length) {
+            vector.components = Arrays.copyOf(vector.components, vector1.components.length);
+        }
+        for (int i = 0; i < vector.components.length; i++) {
+            product += (vector.components[i] * vector1.components[i]);
+        }
+        return product;
     }
 }
