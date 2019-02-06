@@ -2,7 +2,7 @@ package ru.academit.mikhaylov2.Vector;
 
 import java.util.Arrays;
 
-public class Vector implements Cloneable {
+public class Vector {
     private double[] components;
 
     public Vector(int n) {
@@ -13,21 +13,11 @@ public class Vector implements Cloneable {
     }
 
     public Vector(Vector vector) {
-        this(vector.components);// TODO: 06.02.2019 Проверить копирование и спросить про клонирование.
+        this(vector.components);
         if (vector.components.length == 0) {
             throw new IllegalArgumentException("Недопустимое значение размерности вектора.");
         }
-//        components = Arrays.copyOf(vector.components, vector.components.length);
     }
-
-    /*@Override
-    public Vector clone() { // Можно ли пользоваться таким способом?
-        try {
-            return (Vector)super.clone();
-        }catch (CloneNotSupportedException ex) {
-            throw new InternalError();
-        }
-    }*/
 
     public Vector(double[] doubles) {
         if (doubles.length == 0) {
@@ -49,20 +39,11 @@ public class Vector implements Cloneable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < components.length; i++) {
-            if (i == 0) {
-                sb.append("{");
-            }
-            sb.append(components[i]);
-            if (i < components.length - 1) {
-                sb.append(", ");
-            }
-            if (i == components.length - 1) {
-                sb.append("}");
-            }
+        StringBuilder sb = new StringBuilder("{");
+        for (double component : components) {
+            sb.append(component).append(", ");
         }
-        return sb.toString();
+        return sb.append(components[components.length - 1]).append("}").toString();
     }
 
     @Override
