@@ -83,20 +83,26 @@ public class Vector implements Cloneable {
     }
 
     public void add(Vector vector) {
-        if (this.getSize() < vector.getSize()) {
-            components = Arrays.copyOf(components, vector.components.length);
-        }
-        for (int i = 0; i < vector.components.length; i++) {
+        for (int i = 0; i < Math.max(components.length, vector.components.length); i++) {
+            if (i >= components.length) {
+                components = Arrays.copyOf(components, vector.components.length);
+            }
+            if (i >= vector.components.length) {
+                vector.components = Arrays.copyOf(vector.components, components.length);
+            }
             components[i] += vector.components[i];
         }
     }
 
     public void deduction(Vector vector) {
-        if (this.getSize() < vector.getSize()) {
-            components = Arrays.copyOf(components, vector.components.length);
-        }
-        for (int i = 0; i < vector.components.length; i++) {
-            components[i] -= (vector.components[i]);
+        for (int i = 0; i < Math.max(components.length, vector.components.length); i++) {
+            if (i >= components.length) {
+                components = Arrays.copyOf(components, vector.components.length);
+            }
+            if (i >= vector.components.length) {
+                vector.components = Arrays.copyOf(vector.components, components.length);
+            }
+            components[i] -= vector.components[i];
         }
     }
 
@@ -133,27 +139,31 @@ public class Vector implements Cloneable {
     }
 
     public static Vector getSum(Vector vector1, Vector vector2) {
-        Vector copyOfVector1 = new Vector(vector1);
-        Vector copyOfVector2 = new Vector(vector2);
-        copyOfVector1.add(copyOfVector2);
-        return new Vector(copyOfVector1.components.length, copyOfVector1.components);
+        Vector vector1Copy = new Vector(vector1);
+        Vector vector2Copy = new Vector(vector2);
+        vector1Copy.add(vector2Copy);
+        return new Vector(vector1Copy.components.length, vector1Copy.components);
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
-        Vector copyOfVector1 = new Vector(vector1);
-        Vector copyOfVector2 = new Vector(vector2);
-        copyOfVector1.deduction(copyOfVector2);
-        return new Vector(copyOfVector1.components.length, copyOfVector1.components);
+        Vector vector1Copy = new Vector(vector1);
+        Vector vector2Copy = new Vector(vector2);
+        vector1Copy.deduction(vector2Copy);
+        return new Vector(vector1Copy.components.length, vector1Copy.components);
     }
 
     public static double getScalarProductByVectors(Vector vector1, Vector vector2) {
-        Vector copyOfVector1 = new Vector(vector1);
+        Vector vector1Copy = new Vector(vector1);
+        Vector vector2Copy = new Vector(vector2);
         double product = 0;
-        if (copyOfVector1.components.length < vector2.components.length) {
-            copyOfVector1.components = Arrays.copyOf(vector1.components, vector2.components.length);
-        }
-        for (int i = 0; i < copyOfVector1.components.length; i++) {
-            product += (copyOfVector1.components[i] * vector2.components[i]);
+        for (int i = 0; i < Math.max(vector1Copy.components.length, vector2Copy.components.length); i++) {
+            if (i >= vector1Copy.components.length) {
+                vector1Copy.components = Arrays.copyOf(vector1Copy.components, vector2Copy.components.length);
+            }
+            if (i >= vector2Copy.components.length) {
+                vector2Copy.components = Arrays.copyOf(vector2Copy.components, vector1Copy.components.length);
+            }
+            product += (vector1Copy.components[i] * vector2Copy.components[i]);
         }
         return product;
     }
