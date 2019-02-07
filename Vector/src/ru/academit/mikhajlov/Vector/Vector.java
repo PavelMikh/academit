@@ -65,7 +65,7 @@ public class Vector {
             this.components = Arrays.copyOf(this.components, vector.components.length);
         }
         for (int i = 0; i < vector.components.length; i++) {
-            this.components[i] += (vector.components[i]);
+            this.components[i] += vector.components[i];
         }
     }
 
@@ -74,7 +74,7 @@ public class Vector {
             this.components = Arrays.copyOf(this.components, vector.components.length);
         }
         for (int i = 0; i < vector.components.length; i++) {
-            this.components[i] -= (vector.components[i]);
+            this.components[i] -= vector.components[i];
         }
     }
 
@@ -96,14 +96,14 @@ public class Vector {
         return Math.sqrt(powSum);
     }
 
-    public double getIndexValue(int index) {
+    public double getComponent(int index) {
         if (index < 0 || index >= components.length) {
             throw new IndexOutOfBoundsException("Индекс выходит за границы массива.");
         }
         return components[index];
     }
 
-    public void setIndexValue(double number, int index) {
+    public void setComponent(double number, int index) {
         if (index < 0 || index >= components.length) {
             throw new IndexOutOfBoundsException("Индекс выходит за границы массива.");
         }
@@ -113,18 +113,20 @@ public class Vector {
     public static Vector getSum(Vector vector1, Vector vector2) {
         Vector vector1Copy = new Vector(vector1);
         vector1Copy.add(vector2);
-        return new Vector(vector1Copy.components.length, vector1Copy.components);
+        return vector1Copy;
+
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
         Vector vector1Copy = new Vector(vector1);
         vector1Copy.deduction(vector2);
-        return new Vector(vector1Copy.components.length, vector1Copy.components);
+        return vector1Copy;
     }
 
-    public static double getScalarProductByVectors(Vector vector1, Vector vector2) {
+    public static double getScalarProduct(Vector vector1, Vector vector2) {
         double product = 0;
-        for (int i = 0; i < Math.min(vector1.components.length, vector2.components.length); i++) {
+        int min = Math.min(vector1.components.length, vector2.components.length);
+        for (int i = 0; i < min; i++) {
             product += (vector1.components[i] * vector2.components[i]);
         }
         return product;

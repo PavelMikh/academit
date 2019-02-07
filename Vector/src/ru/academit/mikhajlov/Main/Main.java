@@ -36,7 +36,7 @@ public class Main {
         System.out.println("Результат проверки равенства их компонент = " + vector4.equals(vector3));
 
         System.out.println("Изменяю компоненту вектора 4 по индексу 3 на число 8 и прибавляю к вектору 3 вектор 4:  ");
-        vector4.setIndexValue(8, 3);
+        vector4.setComponent(8, 3);
         vector3.add(vector4);
         System.out.println(vector3.toString());
 
@@ -56,7 +56,7 @@ public class Main {
         System.out.println(vector3.getLength());
 
         System.out.println("Получаю значение компоненты по индексу 0 у вектора 3: ");
-        System.out.println(vector3.getIndexValue(0));
+        System.out.println(vector3.getComponent(0));
 
         System.out.println("Создаю вектор 7 и заполняю его компоненты значениями массива: ");
         Vector vector7 = new Vector(numbers);
@@ -71,7 +71,7 @@ public class Main {
         System.out.println(vector6.toString());
 
         System.out.println("Скалярное произведение векторов 5 и 7 = ");
-        System.out.println(Vector.getScalarProductByVectors(vector5, vector7));
+        System.out.println(Vector.getScalarProduct(vector5, vector7));
 
         System.out.println("Размерность вектора 6 = ");
         System.out.println(vector6.getSize());
