@@ -1,6 +1,6 @@
-package ru.academit.mikhaylov1.main;
+package ru.academit.mikhajlov.main;
 
-import ru.academit.mikhaylov1.shapes.Shape;
+import ru.academit.mikhajlov.shapes.Shape;
 
 import java.util.Comparator;
 

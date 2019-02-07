@@ -1,4 +1,4 @@
-package ru.academit.mikhaylov1.shapes;
+package ru.academit.mikhajlov.shapes;
 
 public class Square implements Shape {
     private double sideLength;

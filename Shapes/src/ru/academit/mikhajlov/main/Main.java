@@ -1,6 +1,6 @@
-package ru.academit.mikhaylov1.main;
+package ru.academit.mikhajlov.main;
 
-import ru.academit.mikhaylov1.shapes.*;
+import ru.academit.mikhajlov.shapes.*;
 
 import java.util.Arrays;
 
