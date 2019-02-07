@@ -37,7 +37,7 @@ public class Vector {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{");
-        for (int i = 0; i < components.length  - 1; i++) {
+        for (int i = 0; i < components.length - 1; i++) {
             sb.append(components[i]).append(", ");
         }
         return sb.append(components[components.length - 1]).append("}").toString();
