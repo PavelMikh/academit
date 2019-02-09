@@ -13,7 +13,7 @@ public class Vector {
     }
 
     public Vector(Vector vector) {
-        this.components = Arrays.copyOf(vector.components, vector.components.length);
+        this(vector.components);
     }
 
     public Vector(double[] numbers) {
