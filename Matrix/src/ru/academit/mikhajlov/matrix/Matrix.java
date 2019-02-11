@@ -16,11 +16,6 @@ public class Matrix {
 
     public Matrix(Matrix matrix) {
         this(matrix.lines);
-        /*Vector[] lines = new Vector[matrix.lines.length];
-        for (int i = 0; i < matrix.lines.length; i++) {
-            lines[i] = new Vector(matrix.lines[i]);
-        }
-        this.lines = lines;*/
     }
 
     public Matrix(double[][] arrays) {
@@ -37,7 +32,14 @@ public class Matrix {
             copyLines[i] = new Vector(lines[i]);
         }
         this.lines = copyLines;
-//        this.lines = lines;
+    }
+
+    public int getWidth() {
+        return this.lines.length;
+    }
+
+    public int getHeight() {
+        return this.lines[0].getSize();
     }
 
     @Override
@@ -49,10 +51,6 @@ public class Matrix {
         return stringBuilder.append(lines[lines.length - 1]).append("}").toString();
     }
 
-    public int[] getSize() {
-        return new int[]{this.lines.length, this.lines[0].getSize()};
-    }
-
     public Vector getLine(int lineIndex) {
         return this.lines[lineIndex];
     }
@@ -62,7 +60,7 @@ public class Matrix {
     }
 
     public Vector getColumn(int componentIndex) {
-        Vector column = new Vector(this.lines.length);
+        Vector column = new Vector(this.getWidth());
         for (int i = 0; i < column.getSize(); i++) {
             column.setComponent(this.lines[i].getComponent(componentIndex), i);
         }
@@ -70,8 +68,8 @@ public class Matrix {
     }
 
     public void transposition() {
-        Matrix matrix = new Matrix(this.getSize()[1], this.getSize()[0]);
-        for (int i = 0; i < this.getSize()[1]; i++) {
+        Matrix matrix = new Matrix(this.getHeight(), this.getWidth());
+        for (int i = 0; i < this.getHeight(); i++) {
             matrix.lines[i] = this.getColumn(i);
         }
         this.lines = matrix.lines;
@@ -82,6 +80,35 @@ public class Matrix {
             line.multiplicationOnScalar(scalar);
         }
     }
+
+    public double getDeterminant() {// TODO: 11.02.2019 оптимизировать!!!
+        if (this.getHeight() != this.getWidth()) {
+            throw new IllegalArgumentException("Высота и ширина матрицы должны быть одинаковые.");
+        }
+        if (this.getHeight() == 2 && this.getWidth() == 2) {
+            return (this.lines[0].getComponent(0) * this.lines[1].getComponent(1)) -
+                    (this.lines[0].getComponent(1) * this.lines[1].getComponent(0));
+        }
+
+        Matrix copy = new Matrix(this);
+        double determinant = 0;
+        for (int i = 0; i < this.getHeight(); i++) {
+            double[][] tmp = new double[this.getHeight() - 1][this.getWidth() - 1];
+            for (int j = 1; j < this.getWidth(); j++) {
+                int columnCount = 0;
+                for (int m = 0; m < this.getWidth(); m++) {
+                    if (m == i) {
+                        continue;
+                    }
+                    tmp[j - 1][columnCount] = copy.lines[j].getComponent(m);
+                    columnCount++;
+                }
+            }
+            determinant += copy.lines[0].getComponent(i) * Math.pow(-1, i) * new Matrix(tmp).getDeterminant();
+        }
+        return determinant;
+    }
 }
+
 
 
