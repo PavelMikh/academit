@@ -81,7 +81,7 @@ public class Matrix {
         }
     }
 
-    public double getDeterminant() {// TODO: 11.02.2019 оптимизировать!!!
+    public double getDeterminant() {
         if (this.getHeight() != this.getWidth()) {
             throw new IllegalArgumentException("Высота и ширина матрицы должны быть одинаковые.");
         }
@@ -95,13 +95,13 @@ public class Matrix {
         for (int i = 0; i < this.getHeight(); i++) {
             double[][] tmp = new double[this.getHeight() - 1][this.getWidth() - 1];
             for (int j = 1; j < this.getWidth(); j++) {
-                int columnCount = 0;
+                int columnIndex = 0;
                 for (int m = 0; m < this.getWidth(); m++) {
                     if (m == i) {
                         continue;
                     }
-                    tmp[j - 1][columnCount] = copy.lines[j].getComponent(m);
-                    columnCount++;
+                    tmp[j - 1][columnIndex] = copy.lines[j].getComponent(m);
+                    columnIndex++;
                 }
             }
             determinant += copy.lines[0].getComponent(i) * Math.pow(-1, i) * new Matrix(tmp).getDeterminant();
