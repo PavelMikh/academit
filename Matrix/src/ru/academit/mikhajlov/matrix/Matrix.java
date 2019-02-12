@@ -108,6 +108,25 @@ public class Matrix {
         }
         return determinant;
     }
+
+    public void multiplicationOnVector (Vector vector) {
+        if (this.getWidth() != vector.getSize()) {
+            throw new IllegalArgumentException("Ширина матрицы и размерность вектора должны быть равны.");
+        }
+        Vector[] array = new Vector[] {vector};
+        Matrix matrix = new Matrix(array);
+        matrix.transposition();
+        Matrix matrixT = new Matrix(matrix);
+        Matrix productResult = new Matrix(vector.getSize(), 1);
+        for (int i = 0; i < getHeight(); i++) {
+            double componentsSum = 0;
+            for (int j = 0; j < getWidth(); j++) {
+                componentsSum += this.lines[i].getComponent(j) * matrixT.lines[j].getComponent(0);
+            }
+            productResult.lines[i].setComponent(componentsSum, 0);
+        }
+        this.lines = productResult.lines;
+    }
 }
 
 

@@ -14,7 +14,12 @@ public class Main {
                 new Vector(new double[]{4, -7, 3, 4}), new Vector(new double[]{5, -5, 3, 8})};
         Vector[] lines1 = new Vector[]{new Vector(new double[]{1, 2, 3}), new Vector(new double[]{4, 5, 6})};
 
-        Matrix matrix2 = new Matrix(lines1);
+        double[] numbers = new double[]{2, 2, 2};
+        Vector vector = new Vector(numbers);
+
+        Matrix matrix2 = new Matrix(arrays);
+        matrix2.multiplicationOnScalar(vector);
+
         Matrix matrix3 = new Matrix(lines);
 
 
