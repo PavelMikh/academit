@@ -127,7 +127,6 @@ public class Matrix {
         if ((getHeight() != matrix.getHeight()) || (getWidth() != matrix.getWidth())) {
             throw new IllegalArgumentException("Размер матрмц должен быть одинаковым.");
         }
-
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
                 lines[i].setComponent(lines[i].getComponent(j) + matrix.lines[i].getComponent(j), j);
@@ -139,7 +138,6 @@ public class Matrix {
         if ((getHeight() != matrix.getHeight()) || (getWidth() != matrix.getWidth())) {
             throw new IllegalArgumentException("Размер матрмц должен быть одинаковым.");
         }
-
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
                 lines[i].setComponent(lines[i].getComponent(j) - matrix.lines[i].getComponent(j), j);
@@ -147,19 +145,19 @@ public class Matrix {
         }
     }
 
-    public static Matrix sum(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
         Matrix matrix1Copy = new Matrix(matrix1);
         matrix1Copy.add(matrix2);
         return matrix1Copy;
     }
 
-    public static Matrix difference(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
         Matrix matrix1Copy = new Matrix(matrix1);
         matrix1Copy.deduction(matrix2);
         return matrix1Copy;
     }
 
-    public static Matrix multiplication(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
         Matrix result = new Matrix(matrix2.getHeight(), matrix2.getWidth());
         for (int i = 0; i < matrix2.getHeight(); i++) {
             Vector vector = matrix2.getColumn(i);
