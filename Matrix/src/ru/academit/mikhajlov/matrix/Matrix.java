@@ -3,171 +3,209 @@ package ru.academit.mikhajlov.matrix;
 import ru.academit.mikhajlov.Vector.Vector;
 
 public class Matrix {
-    private Vector[] lines;
+    private Vector[] rows;
 
     public Matrix(int n, int m) {
+        if (n <= 0 || m <= 0) {
+            throw new IllegalArgumentException("Высота и ширина матрицы должны быть больше нуля.");
+        }
         Vector vector = new Vector(m);
         Vector[] lines = new Vector[n];
         for (int i = 0; i < n; i++) {
             lines[i] = vector;
         }
-        this.lines = lines;
+        this.rows = lines;
     }
 
     public Matrix(Matrix matrix) {
-        this(matrix.lines);
+        this(matrix.rows);
     }
 
     public Matrix(double[][] arrays) {
-        Vector[] lines = new Vector[arrays.length];
+        if (arrays.length == 0) {
+            throw new IllegalArgumentException("Входной массив чисел не может иметь размерность 0.");
+        }
+        int maxRowLength = 0;
+        for (double[] array : arrays) {
+            if (array.length > maxRowLength) {
+                maxRowLength = array.length;
+            }
+        }
+        Vector[] rows = new Vector[arrays.length];
         for (int i = 0; i < arrays.length; i++) {
-            lines[i] = new Vector(arrays[i]);
+            rows[i] = new Vector(maxRowLength, arrays[i]);
         }
-        this.lines = lines;
+        this.rows = rows;
     }
 
-    public Matrix(Vector[] lines) {
-        Vector[] copyLines = new Vector[lines.length];
-        for (int i = 0; i < lines.length; i++) {
-            copyLines[i] = new Vector(lines[i]);
+    public Matrix(Vector[] rows) {
+        if (rows.length == 0) {
+            throw new IllegalArgumentException("Размер массива векторов должен быть больше нуля.0");
         }
-        this.lines = copyLines;
+        int maxRowLength = 0;
+        for (Vector row : rows) {
+            if (row.getSize() > maxRowLength) {
+                maxRowLength = row.getSize();
+            }
+        }
+        Vector[] copyLines = new Vector[rows.length];
+        for (int i = 0; i < rows.length; i++) {
+            double[] array = new double[maxRowLength];
+            for (int j = 0; j < rows[i].getSize(); j++) {
+                array[j] = rows[i].getComponent(j);
+            }
+            copyLines[i] = new Vector(maxRowLength, array);
+        }
+        this.rows = copyLines;
     }
 
-    public int getWidth() {
-        return this.lines.length;
+    public int getRowsCount() {
+        return this.rows.length;
     }
 
-    public int getHeight() {
-        return this.lines[0].getSize();
+    public int getColumnsCount() {
+        return this.rows[0].getSize();
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("{");
-        for (int i = 0; i < this.lines.length - 1; i++) {
-            stringBuilder.append(this.lines[i].toString()).append(", ");
+        for (int i = 0; i < this.rows.length - 1; i++) {
+            stringBuilder.append(this.rows[i].toString()).append(", ");
         }
-        return stringBuilder.append(lines[lines.length - 1]).append("}").toString();
+        return stringBuilder.append(rows[rows.length - 1]).append("}").toString();
     }
 
     public Vector getLine(int lineIndex) {
-        return this.lines[lineIndex];
+        if (lineIndex > getRowsCount() || lineIndex < 0) {
+            throw new IndexOutOfBoundsException("Индекс выходит за границы.");
+        }
+        return new Vector(this.rows[lineIndex]);
     }
 
     public void setLine(int lineIndex, Vector line) {
-        this.lines[lineIndex] = new Vector(line);
+        if (lineIndex > getRowsCount() || lineIndex < 0) {
+            throw new IndexOutOfBoundsException("Индекс выходит за границы.");
+        }
+        this.rows[lineIndex] = new Vector(line);
     }
 
     public Vector getColumn(int componentIndex) {
-        Vector column = new Vector(this.getWidth());
+        if (componentIndex > getColumnsCount() || componentIndex < 0) {
+            throw new IndexOutOfBoundsException("Индекс выходит за границы.");
+        }
+        Vector column = new Vector(getRowsCount());
         for (int i = 0; i < column.getSize(); i++) {
-            column.setComponent(this.lines[i].getComponent(componentIndex), i);
+            column.setComponent(this.rows[i].getComponent(componentIndex), i);
         }
         return column;
     }
 
     public void transposition() {
-        Matrix matrix = new Matrix(this.getHeight(), this.getWidth());
-        for (int i = 0; i < this.getHeight(); i++) {
-            matrix.lines[i] = this.getColumn(i);
+        Vector[] tmp = new Vector[getColumnsCount()];
+        for (int i = 0; i < getColumnsCount(); i++) {
+            tmp[i] = this.getColumn(i);
         }
-        this.lines = matrix.lines;
+        this.rows = tmp;
     }
 
     public void multiplicationOnScalar(double scalar) {
-        for (Vector line : this.lines) {
+        for (Vector line : this.rows) {
             line.multiplicationOnScalar(scalar);
         }
     }
 
     public double getDeterminant() {
-        int width = getWidth();
-        int height = getHeight();
+        int width = getColumnsCount();
+        int height = getRowsCount();
 
         if (height != width) {
             throw new IllegalArgumentException("Высота и ширина матрицы должны быть одинаковые.");
         }
         if (height == 2) {
-            return (this.lines[0].getComponent(0) * this.lines[1].getComponent(1)) -
-                    (this.lines[0].getComponent(1) * this.lines[1].getComponent(0));
+            return (this.rows[0].getComponent(0) * this.rows[1].getComponent(1)) -
+                    (this.rows[0].getComponent(1) * this.rows[1].getComponent(0));
         }
         Matrix copy = new Matrix(this);
         double determinant = 0;
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < width; i++) {
             double[][] tmp = new double[height - 1][width - 1];
-            for (int j = 1; j < width; j++) {
+            for (int j = 1; j < height; j++) {
                 int columnIndex = 0;
-                for (int m = 0; m < width; m++) {
+                for (int m = 0; m < height; m++) {
                     if (m == i) {
                         continue;
                     }
-                    tmp[j - 1][columnIndex] = copy.lines[j].getComponent(m);
+                    tmp[j - 1][columnIndex] = copy.rows[j].getComponent(m);
                     columnIndex++;
                 }
             }
-            determinant += copy.lines[0].getComponent(i) * Math.pow(-1, i) * new Matrix(tmp).getDeterminant();
+            determinant += copy.rows[0].getComponent(i) * Math.pow(-1, i) * new Matrix(tmp).getDeterminant();
         }
         return determinant;
     }
 
-    public void multiplicationOnVector(Vector vector) {
+    public Vector multiplicationOnVector(Vector vector) {
         int length = vector.getSize();
-        if (getWidth() != length) {
+        if (getRowsCount() != length) {
             throw new IllegalArgumentException("Ширина матрицы и размерность вектора должны быть равны.");
         }
+        Vector result = new Vector(getRowsCount());
         for (int i = 0; i < length; i++) {
-            double[] vectorComponent = new double[] {Vector.getScalarProduct(getLine(i), vector)};
-            Vector tmp = new Vector(vectorComponent);
-            lines[i] = tmp;
+            result.setComponent(Vector.getScalarProduct(getLine(i), vector), i);
         }
+        return result;
     }
 
     public void add(Matrix matrix) {
-        if ((getHeight() != matrix.getHeight()) || (getWidth() != matrix.getWidth())) {
-            throw new IllegalArgumentException("Размер матрмц должен быть одинаковым.");
+        if ((getColumnsCount() != matrix.getColumnsCount()) || (getRowsCount() != matrix.getRowsCount())) {
+            throw new IllegalArgumentException("Размер матриц должен быть одинаковым.");
         }
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                lines[i].setComponent(lines[i].getComponent(j) + matrix.lines[i].getComponent(j), j);
-            }
+        for (int i = 0; i < getColumnsCount(); i++) {
+            rows[i].add(matrix.rows[i]);
         }
     }
 
     public void deduction(Matrix matrix) {
-        if ((getHeight() != matrix.getHeight()) || (getWidth() != matrix.getWidth())) {
-            throw new IllegalArgumentException("Размер матрмц должен быть одинаковым.");
+        if ((getColumnsCount() != matrix.getColumnsCount()) || (getRowsCount() != matrix.getRowsCount())) {
+            throw new IllegalArgumentException("Размер матриц должен быть одинаковым.");
         }
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                lines[i].setComponent(lines[i].getComponent(j) - matrix.lines[i].getComponent(j), j);
-            }
+        for (int i = 0; i < getColumnsCount(); i++) {
+            rows[i].deduction(matrix.rows[i]);
         }
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
+        if ((matrix1.getColumnsCount() != matrix2.getColumnsCount()) || (matrix1.getRowsCount() != matrix2.getRowsCount())) {
+            throw new IllegalArgumentException("Размер матриц должен быть одинаковым.");
+        }
         Matrix matrix1Copy = new Matrix(matrix1);
         matrix1Copy.add(matrix2);
         return matrix1Copy;
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
+        if ((matrix1.getColumnsCount() != matrix2.getColumnsCount()) || (matrix1.getRowsCount() != matrix2.getRowsCount())) {
+            throw new IllegalArgumentException("Размер матриц должен быть одинаковым.");
+        }
         Matrix matrix1Copy = new Matrix(matrix1);
         matrix1Copy.deduction(matrix2);
         return matrix1Copy;
     }
 
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
-        Matrix result = new Matrix(matrix2.getHeight(), matrix2.getWidth());
-        for (int i = 0; i < matrix2.getHeight(); i++) {
-            Vector vector = matrix2.getColumn(i);
-            Matrix tmp = new Matrix(matrix1);
-            tmp.multiplicationOnVector(vector);
-            Vector tmpVector = new Vector(tmp.getColumn(0));
-            result.lines[i] = tmpVector;
+        if (matrix1.getColumnsCount() != matrix2.getRowsCount()) {
+            throw new IllegalArgumentException("Количество столбцов первой матрицы должно совпадать с количеством строк второй матрицы.");
         }
-        result.transposition();
-        return new Matrix(result);
+        int length = matrix2.getRowsCount();
+        for (int i = 0; i < length; i++) {
+            Vector tmp = new Vector(length);
+            for (int j = 0; j < matrix1.getColumnsCount(); j++) {
+                tmp.setComponent(Vector.getScalarProduct(matrix1.getLine(i), matrix2.getColumn(j)), j);
+            }
+            matrix1.rows[i] = tmp;
+        }
+        return matrix1;
     }
 }
 
