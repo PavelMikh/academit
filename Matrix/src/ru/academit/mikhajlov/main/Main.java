@@ -27,8 +27,8 @@ public class Main {
         double[] array = new double[]{2, -3, 1};
         Vector vector1 = new Vector(array); // Вектор1 строка
 
-        matrix1.setLine(1, vector1); // Замена строки с индексом 1 вектора 1 на вектор1
-        System.out.println("Измененная строка с индексом 2 матрицы 1 " + matrix1.getLine(1));
+        matrix1.setRow(1, vector1); // Замена строки с индексом 1 вектора 1 на вектор1
+        System.out.println("Измененная строка с индексом 2 матрицы 1 " + matrix1.getRow(1));
 
         System.out.println("Столбец с индексом 1 матрицы 1 " + matrix1.getColumn(1));
 
@@ -40,7 +40,7 @@ public class Main {
 
         System.out.println("Определитель матрицы 3 = " + matrix3.getDeterminant());
 
-        System.out.println("Результат умножения матрицы 4 на вектор 1 " + matrix4.multiplicationOnVector(vector1));
+        System.out.println("Результат умножения матрицы 4 на вектор 1 " + matrix4.getMultiplicationOnVector(vector1));
 
         matrix2.add(matrix3);
         System.out.println("Результат сложения матрицы 2 и матрицы 3 " + matrix2);
