@@ -211,11 +211,12 @@ public class Matrix {
         if (matrix1.getColumnsCount() != matrix2.getRowsCount()) {
             throw new IllegalArgumentException("Количество столбцов первой матрицы должно совпадать с количеством строк второй матрицы.");
         }
-        int length = matrix2.getRowsCount();
-        Vector[] rows = new Vector[matrix1.getRowsCount()];
-        for (int i = 0; i < matrix1.getRowsCount(); i++) {
-            Vector tmp = new Vector(length);
-            for (int j = 0; j < matrix1.getColumnsCount(); j++) {
+        int width = matrix1.getColumnsCount();
+        int height = matrix1.getRowsCount();
+        Vector[] rows = new Vector[height];
+        for (int i = 0; i < height; i++) {
+            Vector tmp = new Vector(width);
+            for (int j = 0; j < width; j++) {
                 tmp.setComponent(j, Vector.getScalarProduct(matrix1.rows[i], matrix2.getColumn(j)));
             }
             rows[i] = tmp;
