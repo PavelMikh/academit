@@ -211,8 +211,8 @@ public class Matrix {
         if (matrix1.getColumnsCount() != matrix2.getRowsCount()) {
             throw new IllegalArgumentException("Количество столбцов первой матрицы должно совпадать с количеством строк второй матрицы.");
         }
-        int width = matrix2.getColumnsCount();
         int height = matrix1.getRowsCount();
+        int width = matrix2.getColumnsCount();
         Vector[] rows = new Vector[height];
         for (int i = 0; i < height; i++) {
             Vector tmp = new Vector(width);
