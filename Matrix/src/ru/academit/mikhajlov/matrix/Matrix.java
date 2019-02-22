@@ -21,28 +21,20 @@ public class Matrix {
     }
 
     public Matrix(double[][] arrays) {
-
         if (arrays == null) {
             throw new NullPointerException("Входной массив не должен иметь значение null.");
         }
         if (arrays.length == 0) {
             throw new IllegalArgumentException("Входной массив чисел не может иметь размерность 0.");
         }
-        int check = 0;
-        for (double[] numbers : arrays) {
-            if (numbers.length == 0) {
-                continue;
-            }
-            check = 1;
-        }
-        if (check == 0) {
-            throw new IllegalArgumentException("Хотя бы одна строка входного массива должна иметь длину больше нуля.");
-        }
         int maxRowLength = 0;
         for (double[] array : arrays) {
             if (array.length > maxRowLength) {
                 maxRowLength = array.length;
             }
+        }
+        if (maxRowLength == 0) {
+            throw new IllegalArgumentException("Хотя бы одна строка входного массива должна иметь длину больше нуля.");
         }
         Vector[] rows = new Vector[arrays.length];
         for (int i = 0; i < arrays.length; i++) {
@@ -220,8 +212,8 @@ public class Matrix {
             throw new IllegalArgumentException("Количество столбцов первой матрицы должно совпадать с количеством строк второй матрицы.");
         }
         int length = matrix2.getRowsCount();
-        Vector[] rows = new Vector[length];
-        for (int i = 0; i < length; i++) {
+        Vector[] rows = new Vector[matrix1.getRowsCount()];
+        for (int i = 0; i < matrix1.getRowsCount(); i++) {
             Vector tmp = new Vector(length);
             for (int j = 0; j < matrix1.getColumnsCount(); j++) {
                 tmp.setComponent(j, Vector.getScalarProduct(matrix1.rows[i], matrix2.getColumn(j)));
