@@ -103,7 +103,7 @@ public class Vector {
         return components[index];
     }
 
-    public void setComponent(double number, int index) {
+    public void setComponent(int index, double number) {
         if (index < 0 || index >= components.length) {
             throw new IndexOutOfBoundsException("Индекс выходит за границы массива.");
         }
