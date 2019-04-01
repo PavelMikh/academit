@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         if (args.length != 1) {
             System.out.printf("Передано аргументов: %d. Нужно ввести один аргумент - путь к файлу ", args.length);
             return;
@@ -18,6 +18,8 @@ public class Main {
             while (scanner.hasNextLine()) {
                 list.add(scanner.nextLine());
             }
+        } catch (IOException e) {
+            System.out.println("Файл не найден.");
         }
         System.out.println(list);
 
