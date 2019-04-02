@@ -1,7 +1,7 @@
 package ru.academit.mikhajlov.main;
 
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -18,7 +18,7 @@ public class Main {
             while (scanner.hasNextLine()) {
                 list.add(scanner.nextLine());
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Файл не найден.");
         }
         System.out.println(list);
