@@ -87,7 +87,6 @@ public class SinglyLinkedList<T> {
                 hasRemove = true;
                 listSize--;
             }
-
         }
         return hasRemove;
     }
