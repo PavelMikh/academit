@@ -17,7 +17,7 @@ public class SinglyLinkedList<T> {
         return this.head.getData();
     }
 
-    public ListItem<T> itemSearch(int index) {
+    private ListItem<T> itemSearch(int index) {
         if (index < 0 || index >= listSize) {
             throw new IndexOutOfBoundsException("Выход за границы списка. Узла с таким индексом не существует.");
         }
