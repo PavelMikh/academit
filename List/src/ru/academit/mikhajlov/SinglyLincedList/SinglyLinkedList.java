@@ -117,22 +117,21 @@ public class SinglyLinkedList<T> {
 
     public SinglyLinkedList<T> copy() {
         SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
-        ListItem<T> first = head;
-        ListItem<T> second = first.getNext();
-        ListItem<T> item = new ListItem<>(head.getData(), null);
-        ListItem<T> nextItem;
+        ListItem<T> item = head;
+        ListItem<T> nextItem = item.getNext();
+        ListItem<T> itemCopy = new ListItem<>(head.getData(), null);
 
-        while (second != null) {
-            if (first == head) {
-                listCopy.head = item;
+        while (nextItem != null) {
+            if (item == head) {
+                listCopy.head = itemCopy;
                 listCopy.listSize++;
             }
-            nextItem = new ListItem<>(second.getData(), null);
-            item.setNext(nextItem);
-            item = nextItem;
+            ListItem<T> nextItemCopy = new ListItem<>(nextItem.getData(), null);
+            itemCopy.setNext(nextItemCopy);
+            itemCopy = nextItemCopy;
             listCopy.listSize++;
-            first = second;
-            second = second.getNext();
+            item = nextItem;
+            nextItem = nextItem.getNext();
         }
         return listCopy;
     }
