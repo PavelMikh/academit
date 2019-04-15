@@ -74,6 +74,9 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean valueRemove(T data) {
+        if (listSize == 0) {
+            throw new IllegalArgumentException("Список пуст.");
+        }
         boolean hasRemove = false;
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (p.getData().equals(data)) {
@@ -92,6 +95,9 @@ public class SinglyLinkedList<T> {
     }
 
     public T firstItemRemove() {
+        if (listSize == 0) {
+            throw new NullPointerException("Список пуст.");
+        }
         T tmp = head.getData();
         head = head.getNext();
         listSize--;
@@ -99,6 +105,9 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
+        if (listSize == 0) {
+            throw new NullPointerException("Список пуст.");
+        }
         ListItem<T> first = head;
         ListItem<T> second = first.getNext();
         ListItem<T> third = second.getNext();
@@ -116,6 +125,9 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList<T> copy() {
+        if (listSize == 0) {
+            throw new NullPointerException("Список пуст.");
+        }
         SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
         ListItem<T> item = head;
         ListItem<T> nextItem = item.getNext();
