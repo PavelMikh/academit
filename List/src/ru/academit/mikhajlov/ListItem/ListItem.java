@@ -2,7 +2,7 @@ package ru.academit.mikhajlov.ListItem;
 
 public class ListItem<T> {
     private T data;
-    private ListItem <T> next;
+    private ListItem<T> next;
 
     public ListItem(T data, ListItem<T> next) {
         this.data = data;
@@ -12,6 +12,7 @@ public class ListItem<T> {
     public T getData() {
         return data;
     }
+
     public void setData(T data) {
         this.data = data;
     }
