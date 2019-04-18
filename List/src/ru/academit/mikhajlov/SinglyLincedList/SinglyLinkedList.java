@@ -93,7 +93,6 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean deleteByValue(T data) {
-        boolean hasRemove = false;
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (Objects.equals(p.getData(), data)) {
                 if (prev == null) {
@@ -102,11 +101,10 @@ public class SinglyLinkedList<T> {
                     prev.setNext(p.getNext());
                 }
                 size--;
-                hasRemove = true;
-                break;
+                return true;
             }
         }
-        return hasRemove;
+        return false;
     }
 
     public T removeHead() {
@@ -120,7 +118,7 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
-        if (size == 0) {
+        if (size == 0 || size == 1) {
             return;
         }
         ListItem<T> prev = head;
@@ -141,7 +139,7 @@ public class SinglyLinkedList<T> {
 
     public SinglyLinkedList<T> copy() {
         if (size == 0) {
-            return null;
+            return new SinglyLinkedList<>();
         }
         SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
         listCopy.size = size;
