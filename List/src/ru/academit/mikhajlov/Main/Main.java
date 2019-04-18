@@ -17,5 +17,9 @@ public class Main {
         SinglyLinkedList<Integer> copy = numbers.copy();
         System.out.println(numbers);
         System.out.println(copy);
+        SinglyLinkedList<Integer> copy1 = new SinglyLinkedList<>();
+//        System.out.println(copy1.getHeadValue());
+        copy1.reverse();
+        System.out.println(copy1);
     }
 }

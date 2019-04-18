@@ -2,6 +2,8 @@ package ru.academit.mikhajlov.SinglyLincedList;
 
 import ru.academit.mikhajlov.ListItem.ListItem;
 
+import java.util.Objects;
+
 public class SinglyLinkedList<T> {
     private ListItem<T> head;
     private int size;
@@ -15,7 +17,7 @@ public class SinglyLinkedList<T> {
 
     public T getHeadValue() {
         if (isEmpty()) {
-            throw new IllegalArgumentException("Список пуст.");
+            throw new NullPointerException("Список пуст.");
         }
         return this.head.getData();
     }
@@ -36,9 +38,6 @@ public class SinglyLinkedList<T> {
     }
 
     public T getData(int index) {
-        if (isEmpty()) {
-            throw new IllegalArgumentException("Список пуст.");
-        }
         ListItem<T> item = findItem(index);
         return item.getData();
     }
@@ -51,12 +50,16 @@ public class SinglyLinkedList<T> {
     }
 
     public T removeItem(int index) {
+        if (index == 0) {
+            T content = getHeadValue();
+            head = head.getNext();
+            return content;
+        }
         ListItem<T> prev = findItem(index - 1);
         ListItem<T> p = prev.getNext();
-        T content = p.getData();
         prev.setNext(p.getNext());
         size--;
-        return content;
+        return p.getData();
     }
 
     public void addHead(T data) {
@@ -91,19 +94,15 @@ public class SinglyLinkedList<T> {
     public boolean deleteByValue(T data) {
         boolean hasRemove = false;
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
-            if (hasRemove) {
-                break;
-            }
-            if ((p.getData() != null && p.getData().equals(data)) || (data == null && p.getData() == data)) {
-                if (p == head) {
+            if (Objects.equals(p.getData(), data)) {
+                if (prev == null) {
                     head = p.getNext();
                 } else {
-                    if (prev != null) {
-                        prev.setNext(p.getNext());
-                    }
+                    prev.setNext(p.getNext());
                 }
-                hasRemove = true;
                 size--;
+                hasRemove = true;
+                break;
             }
         }
         return hasRemove;
@@ -120,6 +119,9 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
+        if (size == 0) {
+            return;
+        }
         ListItem<T> prev = head;
         ListItem<T> current = prev.getNext();
         ListItem<T> next = current.getNext();
@@ -137,6 +139,9 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList<T> copy() {
+        if (size == 0) {
+            return null;
+        }
         SinglyLinkedList<T> listCopy = new SinglyLinkedList<>();
         listCopy.size = size;
         ListItem<T> item = head;
