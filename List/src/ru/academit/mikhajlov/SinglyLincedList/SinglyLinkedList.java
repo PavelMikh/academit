@@ -50,9 +50,6 @@ public class SinglyLinkedList<T> {
     }
 
     public T removeItem(int index) {
-        if (isEmpty()) {
-            throw new IllegalArgumentException("Узла с таким индексом не сушествует.");
-        }
         if (index == 0) {
             T content = getHeadValue();
             head = head.getNext();
