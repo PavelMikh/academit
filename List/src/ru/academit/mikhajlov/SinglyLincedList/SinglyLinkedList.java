@@ -118,7 +118,7 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
-        if (size == 0 || size == 1) {
+        if (size <= 1) {
             return;
         }
         ListItem<T> prev = head;
@@ -146,15 +146,12 @@ public class SinglyLinkedList<T> {
         ListItem<T> item = head;
         ListItem<T> nextItem = item.getNext();
         ListItem<T> itemCopy = new ListItem<>(head.getData(), null);
+        listCopy.head = itemCopy;
 
         while (nextItem != null) {
-            if (item == head) {
-                listCopy.head = itemCopy;
-            }
             ListItem<T> nextItemCopy = new ListItem<>(nextItem.getData(), null);
             itemCopy.setNext(nextItemCopy);
             itemCopy = nextItemCopy;
-            item = nextItem;
             nextItem = nextItem.getNext();
         }
         return listCopy;
