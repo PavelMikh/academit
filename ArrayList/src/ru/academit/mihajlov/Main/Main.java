@@ -29,7 +29,19 @@ public class Main {
 //        System.out.println(names.addAll(names1));
         System.out.println(names);
         System.out.println(names.containsAll(names1));
-        System.out.println(names.removeAll(names1));
+//        names.clear();
+        System.out.println(names.get(1));
+        names.set(1, "Tanya");
         System.out.println(names);
+        names.removeAll(names1);
+        System.out.println(names);
+        System.out.println(names.remove(7));
+        System.out.println(names);
+        names.add(5, "Tanya");
+        System.out.println(names);
+        System.out.println(names.indexOf("Tanya"));
+        System.out.println(names.lastIndexOf("Tanya"));
+        names.ensureCapacity(20);
+        names.trimToSize();
     }
 }
