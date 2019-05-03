@@ -9,8 +9,8 @@ public class Main {
         table.add("Pavel");
         table.add("Tanya");
         table.add("Mariya");
-        table.add("Vladimir Krab Putin");
-        table.add("Dmitriy Dimon Medvedev");
+        table.add("Vladimir Putin");
+        table.add("Dmitriy Medvedev");
         System.out.println(table);
     }
 }
