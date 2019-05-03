@@ -7,6 +7,10 @@ public class MyArrayList<T> implements List<T> {
     private int length;
     private int modCount = 0;
 
+    public MyArrayList() {
+        items = (T[]) new Object[10];
+    }
+
     @SuppressWarnings("uncheced")
     public MyArrayList(int capacity) {
         if (capacity < 0) {

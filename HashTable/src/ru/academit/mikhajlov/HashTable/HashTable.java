@@ -1,27 +1,51 @@
 package ru.academit.mikhajlov.HashTable;
 
 import ru.academit.mihajlov.MyArrayList.MyArrayList;
+
 import java.util.Collection;
 import java.util.Iterator;
 
 public class HashTable<T> implements Collection<T> {
     private MyArrayList<T>[] array;
+    private int capacity;
+    private int modCount;
 
-    @SuppressWarnings("ConstantConditions")
+    public HashTable() {
+        array = (MyArrayList<T>[]) new MyArrayList[20];
+    }
+
     public HashTable(int capacity) {
         if (capacity < 0) {
             throw new IllegalArgumentException("Размер массива не может принимать отрицательные значения.");
         }
-        array = (MyArrayList<T>[]) new Object[capacity];
+        array = (MyArrayList<T>[]) new MyArrayList[capacity];
     }
 
-    public int getCollectionIndex(T element) {
+    private int getCollectionIndex(T element) {
+        if (element == null) {
+            return 0;
+        }
         return Math.abs(element.hashCode() % array.length);
     }
 
     @Override
     public int size() {
         return array.length;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; ++i) {
+            if (array[i] != null) {
+                sb.append("index ")
+                        .append(i)
+                        .append(": ")
+                        .append(array[i].toString())
+                        .append(System.lineSeparator());
+            }
+        }
+        return sb.toString();
     }
 
     @Override
@@ -32,9 +56,11 @@ public class HashTable<T> implements Collection<T> {
     private class MyIterator implements Iterator<T> {
         int currentIndex = -1;
         int modCount = 0;
+
         private MyArrayList<T> searchCollection(T element) {
             return array[getCollectionIndex(element)];
         }
+
         @Override
         public boolean hasNext() {
             return false;
@@ -73,7 +99,14 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T t) {
-        return false;
+        int index = getCollectionIndex(t);
+        if (array[index] == null) {
+            array[index] = new MyArrayList<>();
+        }
+        array[index].add(t);
+        ++capacity;
+        ++modCount;
+        return true;
     }
 
     @Override
