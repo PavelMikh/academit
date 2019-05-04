@@ -1,6 +1,6 @@
 package ru.academit.mihajlov.Main;
 
-import ru.academit.mihajlov.Main.Main.MyArrayList.MyArrayList;
+import ru.academit.mihajlov.MyArrayList.MyArrayList;
 
 import java.util.Arrays;
 
