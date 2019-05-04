@@ -1,47 +1,44 @@
 package ru.academit.mikhajlov.HashTable;
 
-import ru.academit.mihajlov.MyArrayList.MyArrayList;
-
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 public class HashTable<T> implements Collection<T> {
-    private MyArrayList<T>[] array;
-    private int capacity;
+    private ArrayList<T>[] lists;
+    private int size;
     private int modCount;
 
     public HashTable() {
-        array = (MyArrayList<T>[]) new MyArrayList[20];
+        lists = (ArrayList<T>[]) new ArrayList[20];
     }
 
     public HashTable(int capacity) {
         if (capacity < 0) {
             throw new IllegalArgumentException("Размер массива не может принимать отрицательные значения.");
         }
-        array = (MyArrayList<T>[]) new MyArrayList[capacity];
+        lists = (ArrayList<T>[]) new ArrayList[capacity];
     }
 
     private int getCollectionIndex(T element) {
         if (element == null) {
             return 0;
         }
-        return Math.abs(element.hashCode() % array.length);
+        return Math.abs(element.hashCode() % lists.length);
     }
 
     @Override
     public int size() {
-        return array.length;
+        return lists.length;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < array.length; ++i) {
-            if (array[i] != null) {
-                sb.append("index ")
+        for (int i = 0; i < lists.length; ++i) {
+            if (lists[i] != null) {
+                sb.append("key ")
                         .append(i)
                         .append(": ")
-                        .append(array[i].toString())
+                        .append(lists[i].toString())
                         .append(System.lineSeparator());
             }
         }
@@ -54,26 +51,36 @@ public class HashTable<T> implements Collection<T> {
     }
 
     private class MyIterator implements Iterator<T> {
-        int currentIndex = -1;
-        int modCount = 0;
-
-        private MyArrayList<T> searchCollection(T element) {
-            return array[getCollectionIndex(element)];
-        }
+        int currentIndex = 0;
+        int currentModCount = modCount;
+        int currentListElementIndex = -1;
 
         @Override
         public boolean hasNext() {
-            return false;
+            return currentIndex < lists.length;
         }
 
         @Override
         public T next() {
-            return null;
-        }
+            if (!hasNext()) {
+                throw new NoSuchElementException("Коллекция кончилась.");
+            }
+            if (currentModCount != modCount) {
+                throw new ConcurrentModificationException("За время обхода изменилась коллекция.");
+            }
+            if (currentListElementIndex < lists[currentIndex].size() - 1) {
+                ++currentListElementIndex;
+            } else {
+                if (currentIndex < lists.length - 1) {
+                    ++currentIndex;
+                }
+                while (lists[currentIndex] == null && currentIndex < lists.length - 1) {
+                    ++currentIndex;
+                }
+                currentListElementIndex = 0;
+            }
 
-        @Override
-        public void remove() {
-
+            return lists[currentIndex].get(currentListElementIndex);
         }
     }
 
@@ -84,7 +91,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyIterator();
     }
 
     @Override
@@ -100,17 +107,22 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean add(T t) {
         int index = getCollectionIndex(t);
-        if (array[index] == null) {
-            array[index] = new MyArrayList<>();
+        if (lists[index] == null) {
+            lists[index] = new ArrayList<>();
         }
-        array[index].add(t);
-        ++capacity;
+        lists[index].add(t);
+        ++size;
         ++modCount;
         return true;
     }
 
     @Override
     public boolean remove(Object o) {
+        while (iterator().hasNext()) {
+            if (Objects.equals(o, iterator().next())) {
+//                TODO
+            }
+        }
         return false;
     }
 
