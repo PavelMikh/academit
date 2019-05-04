@@ -11,7 +11,6 @@ public class Main {
         table.add("Tatyana");
         table.add("Maxim");
         table.add("Mariya");
-        table.add("Vladimir Putin");
         table.add("Dmitriy Medvedev");
         System.out.println(table);
         Iterator iterator = table.iterator();
