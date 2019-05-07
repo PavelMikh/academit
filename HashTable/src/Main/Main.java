@@ -2,8 +2,6 @@ package Main;
 
 import ru.academit.mikhajlov.HashTable.HashTable;
 
-import java.util.Iterator;
-
 public class Main {
     public static void main(String[] args) {
         HashTable<String> table = new HashTable<>(10);
@@ -12,10 +10,18 @@ public class Main {
         table.add("Maxim");
         table.add("Mariya");
         table.add("Dmitriy Medvedev");
+        table.add("uncle Fedor Emelyanenko");
+        table.add("kukuha edet");
+        table.add("Vovka-krab");
+        table.add("kot Vasiliy");
+        table.add("deva Mariya");
+        table.add("hash tablitsa");
+        table.add("Ma");
         System.out.println(table);
-        Iterator iterator = table.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
-        }
+        System.out.println(table.contains("Ma"));
+        System.out.println(table.remove("Vovka-krab"));
+        table.remove("Dmitriy Medvedev");
+        System.out.println(table);
     }
 }
+
