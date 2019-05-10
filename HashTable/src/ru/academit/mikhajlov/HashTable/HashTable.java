@@ -9,12 +9,12 @@ public class HashTable<T> implements Collection<T> {
 
     public HashTable() {
         //noinspection unchecked
-        lists = (ArrayList<T>[]) new ArrayList[20];
+        lists = (ArrayList<T>[]) new ArrayList[10];
     }
 
     public HashTable(int capacity) {
-        if (capacity < 0) {
-            throw new IllegalArgumentException("Размер массива не может принимать отрицательные значения.");
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Вместимость списка должна быть больше нуля.");
         }
         //noinspection unchecked
         lists = (ArrayList<T>[]) new ArrayList[capacity];
@@ -34,6 +34,10 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public String toString() {
+        if (length == 0) {
+            return "Коллекция пуста.";
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < lists.length; ++i) {
             if (lists[i] != null) {
@@ -71,6 +75,7 @@ public class HashTable<T> implements Collection<T> {
             if (currentModCount != modCount) {
                 throw new ConcurrentModificationException("За время обхода изменилась коллекция.");
             }
+
             if ((lists[currentIndex] != null) && (currentListElementIndex < lists[currentIndex].size() - 1)) {
                 ++currentListElementIndex;
             } else {
@@ -139,6 +144,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
+        int tmp = modCount;
         if (contains(o)) {
             //noinspection unchecked
             int index = getCollectionIndex((T) o);
@@ -148,9 +154,8 @@ public class HashTable<T> implements Collection<T> {
             }
             --length;
             ++modCount;
-            return true;
         }
-        return false;
+        return modCount != tmp;
     }
 
     @Override
@@ -158,6 +163,7 @@ public class HashTable<T> implements Collection<T> {
         if (c == null) {
             throw new NullPointerException("Указанная коллекция не может быть null.");
         }
+
         ArrayList<T> list = new ArrayList<>(length);
         list.addAll(this);
         return list.containsAll(c);
@@ -169,6 +175,7 @@ public class HashTable<T> implements Collection<T> {
         if (c == null) {
             throw new NullPointerException("Указанная коллекция не может быть null.");
         }
+
         if (c.isEmpty()) {
             return false;
         }
@@ -183,6 +190,7 @@ public class HashTable<T> implements Collection<T> {
         if (c == null) {
             throw new NullPointerException("Указанная коллекция не может быть null.");
         }
+
         if (c.isEmpty()) {
             return false;
         }
@@ -194,11 +202,27 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Указанная коллекция не может быть null.");
+        }
+        Object[] items = toArray();
+        int tmp = modCount;
+        for (Object item : items) {
+            if (!c.contains(item)) {
+                remove(item);
+            }
+        }
+        return modCount != tmp;
     }
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < length; i++) {
+            if (lists[i] != null) {
+                lists[i] = null;
+            }
+        }
+        length = 0;
+        ++modCount;
     }
 }
