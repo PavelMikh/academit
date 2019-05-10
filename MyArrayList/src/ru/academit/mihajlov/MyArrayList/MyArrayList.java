@@ -187,16 +187,11 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
-
+        int tmp = modCount;
         for (Object cItem : c) {
-            int index = indexOf(cItem);
-            if (index != -1) {
-                remove(index);
-            } else {
-                return false;
-            }
+            remove(cItem);
         }
-        return true;
+        return modCount != tmp;
     }
 
     @Override
@@ -208,7 +203,8 @@ public class MyArrayList<T> implements List<T> {
         int tmp = modCount;
         for (int i = 0; i < length; i++) {
             if (!c.contains(items[i])) {
-                remove(items[i]);
+                remove(i);
+                i--;
             }
         }
         return modCount != tmp;

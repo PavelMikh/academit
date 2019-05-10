@@ -27,7 +27,7 @@ public class Main {
         names.addAll(names1);
 //        names.add(0, "ijiji");
         System.out.println(names);
-        names.removeAll(names1);
+        System.out.println(names.retainAll(names1));
         System.out.println(names);
     }
 }
