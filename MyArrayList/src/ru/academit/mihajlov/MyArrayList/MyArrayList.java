@@ -13,8 +13,8 @@ public class MyArrayList<T> implements List<T> {
     }
 
     public MyArrayList(int capacity) {
-        if (capacity < 0) {
-            throw new IllegalArgumentException("Вместимость списка не может принимать отрицательное значение.");
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Вместимость списка должена быть больше нуля.");
         }
         //noinspection unchecked
         items = (T[]) new Object[capacity];
@@ -145,16 +145,15 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
+
         ensureCapacity(length + c.size());
-        Iterator iterator = c.iterator();
         int index = length;
-        while (iterator.hasNext()) {
-            //noinspection unchecked
-            items[index] = (T) iterator.next();
+        for (T cItem : c) {
+            items[index] = cItem;
             ++index;
         }
         length += c.size();
-        modCount++;
+        ++modCount;
         return true;
     }
 
@@ -167,6 +166,7 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
+
         ensureCapacity(length + c.size());
         System.arraycopy(items, index, items, index + c.size(), length - index);
         int i = index;
@@ -187,14 +187,15 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
+
         for (Object cItem : c) {
-            for (Object item : items) {
-                if (cItem == item) {
-                    remove(item);
-                }
+            int index = indexOf(cItem);
+            if (index != -1) {
+                remove(index);
+            } else {
+                return false;
             }
         }
-        ++modCount;
         return true;
     }
 
@@ -203,19 +204,14 @@ public class MyArrayList<T> implements List<T> {
         if (c == null) {
             throw new NullPointerException("Указанная коллекция не может быть null.");
         }
-        if (c.isEmpty() || !containsAll(c)) {
-            return false;
-        }
-        for (Object item : items) {
-            for (Object cItem : c) {
-                if (!Objects.equals(item, cItem)) {
-                    remove(item);
-                    --length;
-                }
+
+        int tmp = modCount;
+        for (int i = 0; i < length; i++) {
+            if (!c.contains(items[i])) {
+                remove(items[i]);
             }
         }
-        ++modCount;
-        return true;
+        return modCount != tmp;
     }
 
     public void trimToSize() {
@@ -253,6 +249,7 @@ public class MyArrayList<T> implements List<T> {
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Выход за границы списка.");
         }
+
         T tmp = items[index];
         items[index] = element;
         return tmp;
@@ -279,6 +276,7 @@ public class MyArrayList<T> implements List<T> {
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Выход за границы списка.");
         }
+
         T tmp = items[index];
         System.arraycopy(items, index + 1, items, index, length - (index + 1));
         --length;

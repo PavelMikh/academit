@@ -24,13 +24,10 @@ public class Main {
 
         System.out.println(names);
         names1.trimToSize();
-        System.out.println(names.indexOf("Ivan"));
-        System.out.println(names.lastIndexOf("Ivan"));
-        System.out.println(names.indexOf("jhbhb"));
-        names.addAll(10, names1);
-        names.add(0, "ijiji");
+        names.addAll(names1);
+//        names.add(0, "ijiji");
         System.out.println(names);
-        names.set(0, "element1");
+        names.removeAll(names1);
         System.out.println(names);
     }
 }
