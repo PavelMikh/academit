@@ -98,12 +98,31 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Iterator<T> itr = iterator();
+        Object[] items = new Object[length];
+        for (int i = 0; itr.hasNext(); i++) {
+            items[i] = itr.next();
+        }
+        return items;
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        if (a == null) {
+            throw new NullPointerException("Указанный массив не может быть null.");
+        }
+
+        Object[] items = toArray();
+        if (a.length < length) {
+            //noinspection unchecked
+            return (T1[]) Arrays.copyOf(items, length, a.getClass());
+        }
+        //noinspection SuspiciousSystemArraycopy
+        System.arraycopy(items, 0, a, 0, length);
+        if (a.length > length) {
+            a[length] = null;
+        }
+        return a;
     }
 
     @Override
@@ -136,17 +155,41 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Указанная коллекция не может быть null.");
+        }
+        ArrayList<T> list = new ArrayList<>(length);
+        list.addAll(this);
+        return list.containsAll(c);
     }
+
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Указанная коллекция не может быть null.");
+        }
+        if (c.isEmpty()) {
+            return false;
+        }
+        for (T cItem : c) {
+            add(cItem);
+        }
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        if (c == null) {
+            throw new NullPointerException("Указанная коллекция не может быть null.");
+        }
+        if (c.isEmpty()) {
+            return false;
+        }
+        for (Object cItem : c) {
+            remove(cItem);
+        }
+        return true;
     }
 
     @Override

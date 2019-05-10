@@ -24,7 +24,7 @@ public class Main {
 
         System.out.println(names);
         names1.trimToSize();
-        names.addAll(names1);
+//        names.addAll(names1);
 //        names.add(0, "ijiji");
         System.out.println(names);
         System.out.println(names.retainAll(names1));
