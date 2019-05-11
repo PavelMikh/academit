@@ -189,8 +189,11 @@ public class MyArrayList<T> implements List<T> {
         }
         int tmp = modCount;
         for (Object cItem : c) {
-            while (indexOf(cItem) != -1) {
-                remove(cItem);
+            for (int i = 0; i < length; i++) {
+                if (Objects.equals(cItem, items[i])) {
+                    remove(items[i]);
+                    i--;
+                }
             }
         }
         return modCount != tmp;
