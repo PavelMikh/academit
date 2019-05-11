@@ -189,7 +189,9 @@ public class MyArrayList<T> implements List<T> {
         }
         int tmp = modCount;
         for (Object cItem : c) {
-            remove(cItem);
+            while (indexOf(cItem) != -1) {
+                remove(cItem);
+            }
         }
         return modCount != tmp;
     }
