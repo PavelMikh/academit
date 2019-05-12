@@ -190,8 +190,8 @@ public class MyArrayList<T> implements List<T> {
         }
         int tmp = modCount;
         for (Object cItem : c) {
+            //noinspection StatementWithEmptyBody
             while (remove(cItem)) {
-                remove(cItem);
             }
         }
         return modCount != tmp;
