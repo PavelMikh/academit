@@ -10,14 +10,16 @@ public class Main {
         names.add("Paul");
         names.add("Ivan");
         names.add("Mariya");
+        names.add("Valera");
         names.add("Julia");
         names.add("Aleksandr");
         names.add("Irina");
         names.add("Ivan");
-        names.add("Valera");
+        names1.add("Valera");
         names.add("Kristina");
         names.add("Ivan");
         names.add("Kristina");
+        names1.add("Valera");
         names.add("Ivan");
         names1.add("Nikolas");
         names1.add("Nikolas1");
@@ -26,10 +28,11 @@ public class Main {
         names1.add("Nikolas4");
 
         System.out.println(names1);
-        System.out.println(names1.addAll(names));
-        System.out.println(names1.addAll(names));
-        System.out.println(names1);
+//        System.out.println(names1.addAll(names));
+//        System.out.println(names1.addAll(names));
+//        System.out.println(names1);
         System.out.println(names1.removeAll(names));
         System.out.println(names1);
+//        System.out.println(names.containsAll(names1));
     }
 }

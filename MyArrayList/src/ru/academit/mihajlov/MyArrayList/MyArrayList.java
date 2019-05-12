@@ -184,16 +184,14 @@ public class MyArrayList<T> implements List<T> {
         if (c == null) {
             throw new NullPointerException("Указанная коллекция не может быть null.");
         }
+
         if (c.isEmpty()) {
             return false;
         }
         int tmp = modCount;
         for (Object cItem : c) {
-            for (int i = 0; i < length; i++) {
-                if (Objects.equals(cItem, items[i])) {
-                    remove(items[i]);
-                    i--;
-                }
+            while (remove(cItem)) {
+                remove(cItem);
             }
         }
         return modCount != tmp;
