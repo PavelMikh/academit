@@ -19,7 +19,7 @@ public class Main {
         persons.add(person3);
         persons.add(person4);
         persons.add(person5);
-        Stream<Person> stream = persons.stream().filter(person -> person.getAge() > 30);
+        Stream<Person> stream = persons.stream().filter(person -> person.getAge() >= 29);
         stream.forEach(System.out::println);
     }
 }
