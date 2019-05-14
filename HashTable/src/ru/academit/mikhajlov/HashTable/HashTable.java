@@ -204,8 +204,11 @@ public class HashTable<T> implements Collection<T> {
         int tmp = modCount;
         for (Object cItem : c) {
             int index = getCollectionIndex(cItem);
-            //noinspection StatementWithEmptyBody
-            while (lists[index] != null && lists[index].removeAll(c)) ;
+            //noinspection SuspiciousMethodCalls
+            while (lists[index] != null && lists[index].remove(cItem)) {
+                ++modCount;
+                --length;
+            }
         }
         return modCount != tmp;
     }
@@ -219,7 +222,7 @@ public class HashTable<T> implements Collection<T> {
         for (ArrayList<T> list : lists) {
             if (list != null) {
                 int currentSize = list.size();
-                while (list.retainAll(c)) {
+                if (list.retainAll(c)) {
                     ++modCount;
                     length -= currentSize - list.size();
                 }

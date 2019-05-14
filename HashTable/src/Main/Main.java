@@ -18,7 +18,7 @@ public class Main {
         System.out.println(table1);
         table1.addAll(table);
         System.out.println(table1);
-        System.out.println(table1.retainAll(table));
+        System.out.println(table1.removeAll(table));
         System.out.println(table1);
         System.out.println(table1.size());
     }
