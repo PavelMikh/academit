@@ -94,8 +94,7 @@ public class HashTable<T> implements Collection<T> {
     public boolean contains(Object o) {
         int index = getCollectionIndex(o);
         if (lists[index] != null) {
-            //noinspection SuspiciousMethodCalls
-            return lists[index].indexOf(o) != -1;
+            return lists[index].contains(o);
         }
         return false;
     }
@@ -205,12 +204,8 @@ public class HashTable<T> implements Collection<T> {
         int tmp = modCount;
         for (Object cItem : c) {
             int index = getCollectionIndex(cItem);
-            for (int i = 0; lists[index] != null && i < lists[index].size(); i++) {
-                if (Objects.equals(lists[index].get(i), cItem)) {
-                    remove(lists[index].get(i));
-                    i--;
-                }
-            }
+            //noinspection StatementWithEmptyBody
+            while (lists[index] != null && lists[index].removeAll(c)) ;
         }
         return modCount != tmp;
     }
@@ -223,7 +218,11 @@ public class HashTable<T> implements Collection<T> {
         int tmp = modCount;
         for (ArrayList<T> list : lists) {
             if (list != null) {
-                list.retainAll(c);
+                int currentSize = list.size();
+                while (list.retainAll(c)) {
+                    ++modCount;
+                    length -= currentSize - list.size();
+                }
             }
         }
         return modCount != tmp;
