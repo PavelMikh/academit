@@ -13,7 +13,7 @@ public class Person {
         return name;
     }
 
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
