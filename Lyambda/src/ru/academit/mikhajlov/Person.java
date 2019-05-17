@@ -2,9 +2,9 @@ package ru.academit.mikhajlov;
 
 public class Person {
     private String name;
-    private Integer age;
+    private int age;
 
-    public Person(String name, Integer age) {
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
     }

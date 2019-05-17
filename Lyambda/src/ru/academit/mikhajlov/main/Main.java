@@ -53,8 +53,7 @@ public class Main {
 
         System.out.println("List of people from 20 to 45 years sorted descending: " + persons.stream()
                 .filter(person -> person.getAge() >= 20 && person.getAge() <= 45)
-                .sorted(Comparator.comparingInt(Person::getAge)
-                        .reversed())
+                .sorted(Comparator.comparingInt(Person::getAge).reversed())
                 .map(Person::getName)
                 .collect(Collectors.joining(", ")));
 
@@ -62,16 +61,14 @@ public class Main {
         System.out.println("Enter the count of numbers you want to calculate: ");
         DoubleStream sqrt = DoubleStream.iterate(0, number -> number + 1)
                 .map(Math::sqrt)
-                .limit(new Scanner(System.in)
-                        .nextInt());
+                .limit(new Scanner(System.in).nextInt());
         sqrt.forEach(System.out::println);
 
         //Creating an infinite stream of Fibonacci numbers
         System.out.println("Enter the count of Fibonacci numbers you want calculate: ");
         LongStream fibonacci = LongStream.iterate(0, number -> number + 1)
                 .map(number -> (long) (Math.pow(((Math.sqrt(5) + 1) / 2), number) / Math.sqrt(5) + 0.5))
-                .limit(new Scanner(System.in)
-                        .nextInt());
+                .limit(new Scanner(System.in).nextInt());
         fibonacci.forEach(System.out::println);
     }
 }
