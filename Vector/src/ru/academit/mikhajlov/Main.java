@@ -1,4 +1,4 @@
-package ru.academit.mikhajlov.Main;
+package ru.academit.mikhajlov;
 
 import ru.academit.mikhajlov.Vector.Vector;
 
