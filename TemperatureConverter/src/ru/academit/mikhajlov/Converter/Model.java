@@ -2,13 +2,16 @@ package ru.academit.mikhajlov.Converter;
 
 import java.util.Objects;
 
-public class Model implements Converter {
+public class Model {
+    private String conversionType;
+    private double value;
 
-    public Model() {
+    public Model(String conversionType, double value) {
+        this.conversionType = conversionType;
+        this.value = value;
     }
 
-    @Override
-    public String convert(String conversionType, double value) {
+    public String convert() {
         if (Objects.equals(conversionType, "цельсий - кельвин")) {
             return String.format("%f", value + 273.15);
         }

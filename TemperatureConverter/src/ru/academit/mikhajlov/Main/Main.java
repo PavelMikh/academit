@@ -44,13 +44,13 @@ public class Main {
                 try {
                     JComboBox box = (JComboBox) e.getSource();
                     String item = (String) box.getSelectedItem();
-                    Model model = new Model();
                     double number = Double.parseDouble(input.getText());
-                    output.setText(model.convert(item, number));
+                    output.setText(new Model(item, number).convert());
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(window, "Температуру нужно вводить цифрами.");
                 }
             };
+
             //noinspection unchecked
             JComboBox comboBox = new JComboBox(conversionType);
             comboBox.addActionListener(comboBoxListener);
