@@ -1,23 +1,32 @@
 package ru.academit.mikhajlov.Converter;
 
-public class KelvinListener extends TemperatureAction {
-    public KelvinListener(Temperatures temperatures) {
-        super(temperatures);
-        putValue(NAME, "Кельвин");
+import ru.academit.mikhajlov.Main.TemperatureConverter;
+
+public class KelvinListener extends Listener {
+    private static final String NAME = "Кельвин";
+
+    KelvinListener() {
+        super(NAME);
     }
 
-    @Override
+    @TemperatureConverter.Flag(flag = "Цельсий")
     public double toCelsius(double value) {
         return value - 273.15;
     }
 
-    @Override
+    @TemperatureConverter.Flag(flag = "Фаренгейт")
     public double toFahrenheit(double value) {
         return (value - 273.15) * 1.8 + 32;
     }
 
-    @Override
+    @TemperatureConverter.Flag(flag = "Кельвин")
     public double toKelvin(double value) {
         return value;
     }
+
+    @Override
+    public String getName() {
+        return NAME;
+    }
+
 }
