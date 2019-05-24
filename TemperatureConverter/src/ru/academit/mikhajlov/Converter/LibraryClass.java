@@ -13,11 +13,12 @@ public class LibraryClass {
         Class classObject = object.getClass();
 
         for (Method method : classObject.getDeclaredMethods()) {
-            TemperatureConverter.Flag annotation = method.getAnnotation(TemperatureConverter.Flag.class);
+            TemperatureConverter.Init annotation = method.getDeclaredAnnotation(TemperatureConverter.Init.class);
 
             if (Objects.equals(annotation.flag(), type)) {
                 try {
                     result = (double) method.invoke(object, number);
+                    break;
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }

@@ -3,7 +3,6 @@ package ru.academit.mikhajlov.Converter;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Converter extends JPanel {
 
@@ -33,32 +32,25 @@ public class Converter extends JPanel {
         converter.add(functionalPanel, BorderLayout.CENTER);
         add(converter);
 
-
-        //Создание объектов - слушателей.
-        Listener celsiusListener = new CelsiusListener();
-        Listener fahrenheitListener = new FahrenheitListener();
-        Listener kelvinListener = new KelvinListener();
-
-        //Создание таблицы <K, V> K - NAME, V - listener.
+        //Создание объектов - слушателей. Создание таблицы <K, V> K - NAME, V - listener.
         HashMap<String, Listener> listeners = new HashMap<>();
-        listeners.put(celsiusListener.getName(), celsiusListener);
-        listeners.put(fahrenheitListener.getName(), fahrenheitListener);
-        listeners.put(kelvinListener.getName(), kelvinListener);
-
+        listeners.put("Цельсий", new CelsiusListener());
+        listeners.put("Фаренгейт", new FahrenheitListener());
+        listeners.put("Кельвин", new KelvinListener());
 
         calculationButton.addActionListener(e -> {
-            //Вычисление чисового значения из поля ввода.
-            double number = Double.parseDouble(inputField.getText());
-            double result;
-            if (Objects.equals(fromType.getSelectedItem(), toType.getSelectedItem())) {
-                result = number;
-            } else {
-                //noinspection SuspiciousMethodCalls
-                Listener listener = listeners.get(fromType.getSelectedItem());
+            try {
+                //Вычисление чисового значения из поля ввода.
+                double number = Double.parseDouble(inputField.getText());
+                double result;
+                String type = (String) fromType.getSelectedItem();
+                Listener listener = listeners.get(type);
                 LibraryClass library = new LibraryClass();
                 result = library.convert(listener, (String) toType.getSelectedItem(), number);
+                outputField.setText(String.valueOf(result));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(converter, "Температуру нужно вводить цифрами.");
             }
-            outputField.setText(String.valueOf(result));
         });
     }
 }

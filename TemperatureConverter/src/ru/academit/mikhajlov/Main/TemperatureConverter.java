@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 public class TemperatureConverter {
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface Flag {
+    public @interface Init {
         String flag();
     }
 

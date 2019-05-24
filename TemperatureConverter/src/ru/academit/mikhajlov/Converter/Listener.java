@@ -1,11 +1,9 @@
 package ru.academit.mikhajlov.Converter;
 
 abstract class Listener {
-    private final String NAME;
+    public abstract double toCelsius(double value);
 
-    Listener(String name) {
-        NAME = name;
-    }
+    public abstract double toFahrenheit(double value);
 
-    abstract String getName();
+    public abstract double toKelvin(double value);
 }
