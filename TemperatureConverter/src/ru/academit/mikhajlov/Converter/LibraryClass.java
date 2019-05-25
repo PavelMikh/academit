@@ -1,6 +1,6 @@
 package ru.academit.mikhajlov.Converter;
 
-import ru.academit.mikhajlov.Main.TemperatureConverter;
+import ru.academit.mikhajlov.Annotation.Annotation;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,7 +13,7 @@ public class LibraryClass {
         Class classObject = object.getClass();
 
         for (Method method : classObject.getDeclaredMethods()) {
-            TemperatureConverter.Init annotation = method.getDeclaredAnnotation(TemperatureConverter.Init.class);
+            Annotation.Init annotation = method.getDeclaredAnnotation(Annotation.Init.class);
 
             if (Objects.equals(annotation.flag(), type)) {
                 try {

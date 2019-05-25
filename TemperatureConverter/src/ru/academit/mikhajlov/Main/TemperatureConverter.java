@@ -4,18 +4,8 @@ import ru.academit.mikhajlov.Converter.Converter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 public class TemperatureConverter {
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface Init {
-        String flag();
-    }
-
     public static void main(String[] args) {
         new TemperatureConverter();
     }

@@ -1,19 +1,19 @@
 package ru.academit.mikhajlov.Converter;
 
-import ru.academit.mikhajlov.Main.TemperatureConverter;
+import ru.academit.mikhajlov.Annotation.Annotation;
 
-public class KelvinListener extends Listener {
-    @TemperatureConverter.Init(flag = "Цельсий")
+public class KelvinListener implements Listener {
+    @Annotation.Init(flag = "Цельсий")
     public double toCelsius(double value) {
         return value - 273.15;
     }
 
-    @TemperatureConverter.Init(flag = "Фаренгейт")
+    @Annotation.Init(flag = "Фаренгейт")
     public double toFahrenheit(double value) {
         return (value - 273.15) * 1.8 + 32;
     }
 
-    @TemperatureConverter.Init(flag = "Кельвин")
+    @Annotation.Init(flag = "Кельвин")
     public double toKelvin(double value) {
         return value;
     }
