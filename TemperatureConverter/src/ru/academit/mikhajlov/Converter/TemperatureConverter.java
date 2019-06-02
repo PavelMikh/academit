@@ -11,7 +11,7 @@ public class TemperatureConverter {
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            Image image = Toolkit.getDefaultToolkit().getImage("градусник.jpg");
+            Image image = Toolkit.getDefaultToolkit().getImage("Термометр.jpeg");
             frame.setIconImage(image);
             frame.add(new FunctionalPanel());
             frame.setVisible(true);
