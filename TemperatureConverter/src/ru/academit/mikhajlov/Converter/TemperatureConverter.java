@@ -1,10 +1,11 @@
 package ru.academit.mikhajlov.Converter;
 
+import ru.academit.mikhajlov.Controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class TemperatureConverter {
@@ -16,12 +17,18 @@ public class TemperatureConverter {
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Image img = Toolkit.getDefaultToolkit().getImage("Термометр.jpeg");
-            frame.setIconImage(img);//Создаются панель ввода - вывода и функциональная панель. В конструктор передается строчный менеджер компановки.
+            frame.setIconImage(img);
+            frame.setVisible(true);
+            frame.requestFocus();
             JPanel panel = new JPanel(new BorderLayout());
+            frame.add(panel);
+
+            //Создаются панель ввода - вывода и функциональная панель. В конструктор передается строчный менеджер компановки.
             JPanel inputOutputPanel = new JPanel();
             inputOutputPanel.getPreferredSize();
             JPanel functionalPanel = new JPanel();
             functionalPanel.getPreferredSize();
+
             //На панель ввода - вывода добавляются соответственно поля ввода и вывода.
             JTextField inputField = new HintTextField("Введите значение");
             JTextField outputField = new JTextField(12);
@@ -40,12 +47,6 @@ public class TemperatureConverter {
             panel.add(inputOutputPanel, BorderLayout.NORTH);
             panel.add(functionalPanel, BorderLayout.CENTER);
 
-            //Создание объектов - слушателей. Создание таблицы <K, V> K - NAME, V - listener.
-            HashMap<String, Converter> converters = new HashMap<>();
-            converters.put("Цельсий", new CelsiusConverter());
-            converters.put("Фаренгейт", new FahrenheitConverter());
-            converters.put("Кельвин", new KelvinConverter());
-
             calculationButton.addActionListener(e -> {
                 try {
                     //Вычисление числового значения из поля ввода.
@@ -60,14 +61,13 @@ public class TemperatureConverter {
                     if (Objects.equals(fromTypeValue, toTypeValue)) {
                         result = number;
                     } else { //Случай с разными шкалами.
+                        Converters converters = new Converters();
                         //Поиск объекта из типа которого нужно переводить.
-                        Converter from = converters.get(fromTypeValue);
-                        //Получение промежуточного значения в градусах цельсия.
-                        double intermediateValue = from.toCelsius(number);
+                        Converter from = converters.getConverter(fromTypeValue);
                         //Поиск объекта в тип которого нужно переводить.
-                        Converter to = converters.get(toTypeValue);
+                        Converter to = converters.getConverter(toTypeValue);
                         //Вычисление результата.
-                        result = to.fromCelsius(intermediateValue);
+                        result = Controller.toConvert(number, from, to);
                     }
                     //Вывод результата в поле вывода.
                     outputField.setText(String.valueOf(result));
@@ -76,9 +76,6 @@ public class TemperatureConverter {
                     JOptionPane.showMessageDialog(panel, "Температуру нужно вводить цифрами.");
                 }
             });
-
-            frame.add(panel);
-            frame.setVisible(true);
         });
     }
 
