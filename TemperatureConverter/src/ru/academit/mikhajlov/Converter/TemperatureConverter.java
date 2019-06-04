@@ -12,11 +12,11 @@ public class TemperatureConverter {
     public TemperatureConverter() {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Конвертер температур");
-            frame.setSize(320, 100);
+            frame.setSize(320, 110);
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            Image img = Toolkit.getDefaultToolkit().getImage("Термометр.jpeg");
+            Image img = Toolkit.getDefaultToolkit().getImage("Градусник.jpg");
             frame.setIconImage(img);
             frame.setVisible(true);
             frame.requestFocus();
