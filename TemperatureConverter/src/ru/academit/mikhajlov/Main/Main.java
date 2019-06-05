@@ -11,6 +11,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //noinspection unused
         TemperatureConverter temperatureConverter = new TemperatureConverter();
     }
 }
