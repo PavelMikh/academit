@@ -1,7 +1,6 @@
 package ru.academit.mikhajlov.Model;
 
 public class FahrenheitConverter implements Converter {
-
     FahrenheitConverter(Converters converters) {
         String NAME = "Фаренгейт";
         converters.add(NAME, this);

@@ -1,7 +1,6 @@
 package ru.academit.mikhajlov.Model;
 
 public class CelsiusConverter implements Converter {
-
     CelsiusConverter(Converters converters) {
         String NAME = "Цельсий";
         converters.add(NAME, this);

@@ -1,7 +1,6 @@
 package ru.academit.mikhajlov.Model;
 
 public class KelvinConverter implements Converter {
-
     KelvinConverter(Converters converters) {
         String NAME = "Кельвин";
         converters.add(NAME, this);
