@@ -1,9 +1,9 @@
 package ru.academit.mikhajlov.Model;
 
 public class CelsiusConverter implements Converter {
-    private static final String NAME = "Цельсий";
 
     CelsiusConverter(Converters converters) {
+        String NAME = "Цельсий";
         converters.add(NAME, this);
     }
 
