@@ -1,6 +1,6 @@
 package ru.academit.mikhajlov.Main;
 
-import ru.academit.mikhajlov.Converter.TemperatureConverter;
+import ru.academit.mikhajlov.View.TemperatureConverter;
 
 import javax.swing.*;
 

@@ -1,17 +1,18 @@
-package ru.academit.mikhajlov.Converter;
+package ru.academit.mikhajlov.Model;
 
 import java.util.HashMap;
 
-class Converters {
+public class Converters {
     private static final HashMap<String, Converter> CONVERTERS = new HashMap<>();
 
-    Converters() {
+    @SuppressWarnings("unused")
+    public Converters() {
         Converter celsiusConverter = new CelsiusConverter(this);
         Converter fahrenheitConverter = new FahrenheitConverter(this);
         Converter kelvinConverter = new KelvinConverter(this);
     }
 
-    Converter getConverter(String key) {
+    public Converter getConverter(String key) {
         return CONVERTERS.get(key);
     }
 

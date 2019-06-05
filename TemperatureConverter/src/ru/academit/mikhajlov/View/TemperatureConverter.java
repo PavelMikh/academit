@@ -1,4 +1,4 @@
-package ru.academit.mikhajlov.Converter;
+package ru.academit.mikhajlov.View;
 
 import ru.academit.mikhajlov.Controller.Controller;
 
@@ -12,7 +12,7 @@ public class TemperatureConverter {
     public TemperatureConverter() {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Конвертер температур");
-            frame.setSize(320, 110);
+            frame.setSize(320, 105);
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,25 +49,20 @@ public class TemperatureConverter {
 
             calculationButton.addActionListener(e -> {
                 try {
-                    //Вычисление числового значения из поля ввода.
+                    //Перевод строкового значения из поля ввода в числовое.
                     double number = Double.parseDouble(inputField.getText());
-                    //Объявление переменной результата.
-                    double result;
-                    //Получение значений ключей для поиска нужных объектов - конвертеров в HashMap.
+                    //Получение значений ключей для поиска нужных объектов - конвертеров.
                     String fromTypeValue = (String) fromType.getSelectedItem();
                     String toTypeValue = (String) toType.getSelectedItem();
                     //Вычисление результата конвертации:
+                    //Объявление переменной результата.
+                    double result;
                     //Случай когда выбранные шкалы совпали.
                     if (Objects.equals(fromTypeValue, toTypeValue)) {
                         result = number;
                     } else { //Случай с разными шкалами.
-                        Converters converters = new Converters();
-                        //Поиск объекта из типа которого нужно переводить.
-                        Converter from = converters.getConverter(fromTypeValue);
-                        //Поиск объекта в тип которого нужно переводить.
-                        Converter to = converters.getConverter(toTypeValue);
                         //Вычисление результата.
-                        result = Controller.toConvert(number, from, to);
+                        result = Controller.toConvert(number, fromTypeValue, toTypeValue);
                     }
                     //Вывод результата в поле вывода.
                     outputField.setText(String.valueOf(result));
@@ -84,7 +79,7 @@ public class TemperatureConverter {
         private final String text;
         private boolean showingText;
 
-        public HintTextField(final String text) {
+        HintTextField(final String text) {
             super(text);
             this.text = text;
             this.showingText = true;

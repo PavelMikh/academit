@@ -1,4 +1,4 @@
-package ru.academit.mikhajlov.Converter;
+package ru.academit.mikhajlov.Model;
 
 public class CelsiusConverter implements Converter {
     private static final String NAME = "Цельсий";

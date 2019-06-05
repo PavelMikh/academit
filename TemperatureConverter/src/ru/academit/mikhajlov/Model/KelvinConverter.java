@@ -1,4 +1,4 @@
-package ru.academit.mikhajlov.Converter;
+package ru.academit.mikhajlov.Model;
 
 public class KelvinConverter implements Converter {
     private static final String NAME = "Кельвин";

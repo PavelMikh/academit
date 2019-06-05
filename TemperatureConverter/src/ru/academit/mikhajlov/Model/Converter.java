@@ -1,4 +1,4 @@
-package ru.academit.mikhajlov.Converter;
+package ru.academit.mikhajlov.Model;
 
 public interface Converter {
     double toCelsius(double value);
