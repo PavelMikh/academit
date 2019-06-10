@@ -1,10 +1,7 @@
 package ru.academit.mikhajlov.Model;
 
 public class FahrenheitConverter implements Converter {
-    FahrenheitConverter(Converters converters) {
-        String NAME = "Фаренгейт";
-        converters.add(NAME, this);
-    }
+    static final String NAME = "Фаренгейт";
 
     @Override
     public double toCelsius(double value) {

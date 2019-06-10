@@ -10,9 +10,15 @@ import java.util.Objects;
 
 public class TemperatureConverter {
     public TemperatureConverter() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Конвертер температур");
-            frame.setSize(320, 105);
+            frame.setSize(320, 110);
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,6 +90,7 @@ public class TemperatureConverter {
             this.text = text;
             this.showingText = true;
             super.addFocusListener(this);
+            super.getPreferredSize();
         }
 
         @Override
