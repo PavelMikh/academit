@@ -68,7 +68,7 @@ public class TemperatureConverter {
                         result = number;
                     } else { //Случай с разными шкалами.
                         //Вычисление результата.
-                        result = Controller.toConvert(number, fromTypeValue, toTypeValue);
+                        result = new Controller().toConvert(number, fromTypeValue, toTypeValue);
                     }
                     //Вывод результата в поле вывода.
                     outputField.setText(String.valueOf(result));
